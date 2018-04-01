@@ -5,7 +5,6 @@ import {
 } from '../helpers'
 
 function getHtmlForAll(req, res){
-	let html
 	let isTokenExist
 	let isTokenValid
 
@@ -15,8 +14,8 @@ function getHtmlForAll(req, res){
 				isTokenExist = true
 				const { userAgent } = token
 				isTokenValid = userAgent === req.headers['user-agent']
-				
-				if(isTokenValid) { 
+
+				if(isTokenValid) {
 					// 1) get initial state = { isLogged: true, tags: { offer, looking }}
 					return getInitialState(token)
 				} else {
@@ -29,15 +28,14 @@ function getHtmlForAll(req, res){
 				return getHtml(req)
 			}
 		})
-		// .then(initialState => {
 		.then(resp => {
 			if(isTokenExist && isTokenValid){
 				const initialState = resp
-				
+
 				return getHtml(req, initialState)
 			} else {
 				const html = resp
-				
+
 				return html
 			}
 		})

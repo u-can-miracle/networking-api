@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize'
-
 import sequelize from '../connection'
 
-const TagType = sequelize.define('tagType', {
+
+const tagTypeFields = {
 	tagTypeId: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
@@ -12,6 +12,11 @@ const TagType = sequelize.define('tagType', {
 		type: Sequelize.STRING,
 		allowNull: false
 	}
+}
+const TagType = sequelize.define('tagType', {
+	...tagTypeFields
 })
 
+
+export { tagTypeFields }
 export default TagType

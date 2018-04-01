@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize'
-
 import sequelize from '../connection'
 
-const User = sequelize.define('userTag', {
+
+const userTagFields = {
 	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
@@ -20,6 +20,11 @@ const User = sequelize.define('userTag', {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	}
+}
+const User = sequelize.define('userTag', {
+	...userTagFields
 })
 
+
+export { userTagFields }
 export default User

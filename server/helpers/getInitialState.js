@@ -1,4 +1,3 @@
-import { OFFER, LOOKING } from '../constants'
 import { getDefaultState } from './'
 import userModel from '../db/models/user'
 import userTagModel from '../db/models/userTag'

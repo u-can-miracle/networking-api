@@ -7,16 +7,21 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"test:server": "node node_modules/.bin/mocha --require babel-core/register --timeout 7500 server/**/*.spec.js",
 		"start": "node ./server",
+		"migrate": "npm run create:db && npm run create:tables && npm run create:seeds",
 		"start:dev": "nodemon --exec babel-node ./server",
 		"start:prod": "npm run start:dev",
-		"sequelize:init": "nodemon --exec babel-node ./node_modules/.bin/sequelize init",
-		"lint:format": "eslint --fix --ext .js server client/src share server.js"
+		"lint:format": "eslint --fix --ext .js server client/src share server.js",
+		"create:db": "./node_modules/.bin/sequelize db:create",
+		"create:tables": "babel-node node_modules/.bin/sequelize db:migrate",
+		"create:seeds": "babel-node node_modules/.bin/sequelize db:seed:all",
+		"migration:init": "babel-node node_modules/.bin/sequelize migration:create --name init",
+		"seed:init": "./node_modules/.bin/sequelize seed:create --name init"
 	},
 	"keywords": [
 		"es6",
-		"server side rendering",
 		"express",
-		"sequelize"
+		"sequelize",
+		"passport authentification"
 	],
 	"author": "",
 	"license": "ISC",
