@@ -11,14 +11,14 @@ function saveUserTag(userId, tagId, tagTypeId){
 function getAllUserTagsByUserId(userId){
 	return sequelize.query(
 		`SELECT
-			"userTags"."id" as "userTagId",
-			"userTags"."tagId",
-			"userTags"."tagTypeId",
-			"tags"."name" as "tagName"
-			FROM "public"."userTags"
-			INNER JOIN "public"."tags"
-			ON "userTags"."tagId"="tags"."id"
-			WHERE "userTags"."userId"=${userId};`
+			"userTag"."id" as "userTagId",
+			"userTag"."tagId",
+			"userTag"."tagTypeId",
+			"tag"."name" as "tagName"
+			FROM "public"."userTag"
+			INNER JOIN "public"."tag"
+			ON "userTag"."tagId"="tag"."id"
+			WHERE "userTag"."userId"=${userId};`
 	).spread(rawTags => {
 		return rawTags
 	})
@@ -35,20 +35,20 @@ function removeUserTag(userTagId){
 function searchMatchingTagsByType(userId, tagsEnum, tagTypeIdToFind){
 	return sequelize.query(
 		`SELECT
-			"tags"."id" as "tagId",
-			"tags"."name" as "tagName",
-			"userTags"."id" as "userTagId",
-			"users"."id"  as "userId",
-			"users"."email",
-			"users"."login"
-			FROM  "tags"
-			INNER JOIN "userTags"
-			ON "tags"."id" = "userTags"."tagId"
-			AND "userTags"."tagId" IN (${tagsEnum})
-			AND "userTags"."tagTypeId" = ${tagTypeIdToFind}
-			INNER JOIN "users"
-			ON "users"."id" = "userTags"."userId"
-			WHERE "users"."id" != ${userId}`
+			"tag"."id" as "tagId",
+			"tag"."name" as "tagName",
+			"userTag"."id" as "userTagId",
+			"user"."id"  as "userId",
+			"user"."email",
+			"user"."login"
+			FROM  "tag"
+			INNER JOIN "userTag"
+			ON "tag"."id" = "userTag"."tagId"
+			AND "userTag"."tagId" IN (${tagsEnum})
+			AND "userTag"."tagTypeId" = ${tagTypeIdToFind}
+			INNER JOIN "user"
+			ON "user"."id" = "userTag"."userId"
+			WHERE "user"."id" != ${userId}`
 	).spread(rawTags => {
 		return rawTags
 	})
@@ -57,20 +57,20 @@ function searchMatchingTagsByType(userId, tagsEnum, tagTypeIdToFind){
 function getAllTagsByUsersIds(tagsEnum){
 	return sequelize.query(
 		`SELECT
-			"tags"."id" as "tagId",
-			"tags"."name" as "tagName",
-			"userTags"."id" as "userTagId",
-			"userTags"."tagTypeId",
-			"users"."id"  as "userId",
-			"users"."email",
-			"users"."login"
-			FROM  "tags"
-			INNER JOIN "userTags"
-			ON "tags"."id" = "userTags"."tagId"
-			AND "userTags"."userId" IN (${tagsEnum})
-			INNER JOIN "users"
-			ON "users"."id" = "userTags"."userId"
-			WHERE "users"."id" IN (${tagsEnum})`
+			"tag"."id" as "tagId",
+			"tag"."name" as "tagName",
+			"userTag"."id" as "userTagId",
+			"userTag"."tagTypeId",
+			"user"."id"  as "userId",
+			"user"."email",
+			"user"."login"
+			FROM  "tag"
+			INNER JOIN "userTag"
+			ON "tag"."id" = "userTag"."tagId"
+			AND "userTag"."userId" IN (${tagsEnum})
+			INNER JOIN "user"
+			ON "user"."id" = "userTag"."userId"
+			WHERE "user"."id" IN (${tagsEnum})`
 	).spread(rawTags => {
 		return rawTags
 	})

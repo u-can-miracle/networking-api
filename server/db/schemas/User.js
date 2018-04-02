@@ -28,10 +28,16 @@ const userFields = {
   hash: { // hash for confirm registration
 		type: Sequelize.STRING,
 		allowNull: false
-	}
+	},
+	createdAt: Sequelize.DATE,
+	updatedAt: Sequelize.DATE,
 }
 const User = sequelize.define('user', {
 	...userFields
+}, {
+	freezeTableName: true,
+	createdAt: false,
+	updatedAt: false
 })
 
 

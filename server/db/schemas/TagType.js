@@ -15,6 +15,10 @@ const tagTypeFields = {
 }
 const TagType = sequelize.define('tagType', {
 	...tagTypeFields
+}, {
+	freezeTableName: true,
+	createdAt: false,
+	updatedAt: false
 })
 
 

@@ -23,6 +23,10 @@ const userTagFields = {
 }
 const User = sequelize.define('userTag', {
 	...userTagFields
+}, {
+	freezeTableName: true,
+	createdAt: false,
+	updatedAt: false
 })
 
 

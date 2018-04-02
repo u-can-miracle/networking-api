@@ -9,28 +9,36 @@ export default function(queryInterface){
 				email: 'facebook@gmail.com',
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed'
+				hash: 'confirmed',
+				updatedAt: '2018-02-23 20:38:32.02+02',
+				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
 				id: 4,
 				login: 'google',
 				email: 'google@gmail.com',
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed'
+				hash: 'confirmed',
+				updatedAt: '2018-02-23 20:38:32.02+02',
+				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
 				id: 5,
 				login: 'ElonMusk',
 				email: 'elonm@gmail.com',
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed'
+				hash: 'confirmed',
+				updatedAt: '2018-02-23 20:38:32.02+02',
+				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
 				id: 7,
 				login: 'u-can-miracle',
 				email: 'cloudsmoonlight@gmail.com',
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed'
+				hash: 'confirmed',
+				updatedAt: '2018-02-23 20:38:32.02+02',
+				createdAt: '2018-02-23 20:38:32.02+02'
 			}
 		], {}),
 
