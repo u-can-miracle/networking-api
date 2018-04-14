@@ -155,21 +155,6 @@ export default function(queryInterface){
 				tagId: 26,
 				tagTypeId: 2
 			}, {
-				id: 56,
-				userId: 8,
-				tagId: 23,
-				tagTypeId: 1
-			}, {
-				id: 57,
-				userId: 8,
-				tagId: 24,
-				tagTypeId: 1
-			}, {
-				id: 58,
-				userId: 8,
-				tagId: 26,
-				tagTypeId: 2
-			}, {
 				id: 61,
 				userId: 3,
 				tagId: 36,
