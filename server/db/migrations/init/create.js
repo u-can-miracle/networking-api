@@ -3,7 +3,7 @@ import { tagFields } from '../../schemas/Tag'
 import { tagTypeFields } from '../../schemas/TagType'
 import { userTagFields } from '../../schemas/UserTag'
 
-import createConstraint from '../../../helpers/createConstraint'
+import { createFK } from '../../../helpers'
 
 export default function(queryInterface){
 	return Promise.all([
@@ -21,21 +21,22 @@ export default function(queryInterface){
 		})
 	])
 	.then(() => Promise.all([
-		createConstraintUserId(queryInterface),
-		createConstraintTagId(queryInterface),
-		createConstraintTagTypeId(queryInterface)
+		createFKUserId(queryInterface),
+		createFKTagId(queryInterface),
+		createFKTagTypeId(queryInterface)
 	]))
 }
 
-function createConstraintUserId(queryInterface){
-	return createConstraint(queryInterface, 'userTag', 'userId', 'user', 'id')
+
+function createFKUserId(queryInterface){
+	return createFK(queryInterface, 'userTag', 'userId', 'user', 'id')
 }
 
 
-function createConstraintTagId(queryInterface){
-	return createConstraint(queryInterface, 'userTag', 'tagId', 'tag')
+function createFKTagId(queryInterface){
+	return createFK(queryInterface, 'userTag', 'tagId', 'tag')
 }
 
-function createConstraintTagTypeId(queryInterface){
-	return createConstraint(queryInterface, 'userTag', 'tagTypeId', 'tagType', 'tagTypeId')
+function createFKTagTypeId(queryInterface){
+	return createFK(queryInterface, 'userTag', 'tagTypeId', 'tagType', 'tagTypeId')
 }

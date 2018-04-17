@@ -1,5 +1,5 @@
 import insertInit from './init/insert'
-import deleteInit from './init/delete'
+import removeInit from './init/remove'
 
 export default {
   up: (queryInterface, Sequelize) => {
@@ -7,6 +7,6 @@ export default {
   },
 
   down: (queryInterface, Sequelize) => {
-		return deleteInit(queryInterface, Sequelize)
+		return removeInit(queryInterface, Sequelize)
   }
 }

@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize'
 import sequelize from '../connection'
+import Description from './Description'
+import Photo from './Photo'
 
 
 const userFields = {
@@ -7,6 +9,10 @@ const userFields = {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
 		autoIncrement: true
+	},
+	userName: {
+		type: Sequelize.STRING,
+		defaultValue: ''
 	},
   login: {
 		type: Sequelize.STRING,
@@ -19,6 +25,9 @@ const userFields = {
   password: {
 		type: Sequelize.STRING,
 		allowNull: false
+	},
+	location: {
+		type: Sequelize.INTEGER
 	},
 	isConfirmed: {
 		type: Sequelize.BOOLEAN,
@@ -37,7 +46,15 @@ const User = sequelize.define('user', {
 }, {
 	freezeTableName: true,
 	createdAt: false,
-	updatedAt: false
+	updatedAt: false,
+	hooks: {
+		afterCreate: function(user/*, options*/) {
+			const { id } = user
+			console.log('id')
+			Description.create({ userId: id, description: '' })
+			Photo.create({ userId: id, photo: '' })
+		}
+	}
 })
 
 

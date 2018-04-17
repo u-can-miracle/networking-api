@@ -9,8 +9,11 @@ const photoFields = {
 		autoIncrement: true
 	},
   photo: {
-		type: Sequelize.STRING,
+		type: Sequelize.TEXT,
 		allowNull: false
+	},
+	userId: {
+		type: Sequelize.INTEGER
 	}
 }
 const Photo = sequelize.define('photo', {

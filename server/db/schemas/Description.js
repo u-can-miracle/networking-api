@@ -11,6 +11,9 @@ const descriptionFields = {
   description: {
 		type: Sequelize.STRING,
 		allowNull: false
+	},
+	userId: {
+		type: Sequelize.INTEGER
 	}
 }
 const Description = sequelize.define('description', {

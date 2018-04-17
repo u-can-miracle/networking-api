@@ -11,16 +11,11 @@
 		"start:dev": "nodemon --exec ./node_modules/.bin/babel-node ./server",
 		"start:prod": "npm run start:dev",
 		"lint:format": "eslint --fix --ext .js server client/src share server.js",
-
 		"migration:make": "./node_modules/.bin/babel-node ./commands/migration-make",
-
+		"seed:make": "./node_modules/.bin/babel-node ./commands/seed-make",
 		"db:create": "./node_modules/.bin/sequelize db:create",
 		"migrate:tables:create": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:migrate",
 		"seed:create": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:seed:all",
-
-		"migrate:init": "./node_modules/.bin/babel-node node_modules/.bin/sequelize migration:create --name init",
-		"seed:init": "./node_modules/.bin/sequelize seed:create --name init",
-
 		"db:drop": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize db:drop",
 		"migrate:tables:undo": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:migrate:undo:all",
 		"seed:undo:all": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:seed:undo:all"

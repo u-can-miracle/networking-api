@@ -30,3 +30,5 @@ export const TAG_TYPES = {
 	[OFFER]: OFFER,
 	[LOOKING]: LOOKING
 }
+
+export * from './details'

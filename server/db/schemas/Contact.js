@@ -17,7 +17,8 @@ const contactFields = {
 		allowNull: false
 	},
 	userId: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		allowNull: false
 	}
 }
 const Contact = sequelize.define('contact', {

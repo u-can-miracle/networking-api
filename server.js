@@ -6,6 +6,9 @@ import appConfig from './server/config/express'
 import authConfig from './server/config/passport'
 import rootRouter from './server/routers'
 
+// setup connection and associations
+import './server/db'
+
 const app = express()
 
 

@@ -1,27 +1,51 @@
 import User from '../schemas/User'
 
 
-function getUserByField(fieldName, fieldValue){
-	return User.findOne({ where: { [fieldName]: fieldValue } })
+function getUserByField(fieldName, fieldValue) {
+	return User.findOne({
+		where: {
+			[fieldName]: fieldValue
+		}
+	})
 }
 
-function createUser(user){
-	const { login, email, password, hash } = user
+function updateUserByField(updateField, updateVal, whereField, whereVal) {
+	return User.update({
+		[updateField]: updateVal
+	}, {
+		where: {
+			[whereField]: whereVal
+		}
+	})
+}
 
-	return User.create({ login, email, password, hash })
+function createUser(user) {
+	const {
+		login, email, password, hash
+	} = user
+
+	return User.create({
+			login, email, password, hash
+		})
 		.then(user => {
 			return user
 		})
 }
 
-function setUserAsConfirmedByEmail(email){
-	return User.update(
-		{ isConfirmed: true, hash: 'confirmed' },
-		{ where: { email: email } })
+function setUserAsConfirmedByEmail(email) {
+	return User.update({
+		isConfirmed: true,
+		hash: 'confirmed'
+	}, {
+		where: {
+			email: email
+		}
+	})
 }
 
 export default {
 	getUserByField,
+	updateUserByField,
 	createUser,
 	setUserAsConfirmedByEmail
 }

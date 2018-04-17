@@ -3,7 +3,7 @@ import { descriptionFields } from '../../../schemas/Description'
 import { photoFields } from '../../../schemas/Photo'
 import { contactFields } from '../../../schemas/Contact'
 
-import createConstraint from '../../../../helpers/createConstraint'
+import { createFK } from '../../../../helpers'
 
 export default function(queryInterface){
 	return Promise.all([
@@ -21,6 +21,6 @@ export default function(queryInterface){
 		})
 	])
 	.then(() => {
-		return createConstraint(queryInterface, 'contact', 'userId', 'user')
+		return createFK(queryInterface, 'contact', 'userId', 'user')
 	})
 }
