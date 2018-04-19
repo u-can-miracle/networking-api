@@ -1,7 +1,10 @@
-import { getDefaultState } from './'
-import userModel from '../db/models/user'
+import {
+	getDefaultState,
+	devideTagsOnTypes,
+	formatUserProfile
+} from './'
 import userTagModel from '../db/models/userTag'
-import { devideTagsOnTypes } from './devideTagsOnTypes'
+import commonSql from '../db/models/commonSql'
 
 export function getInitialState(token, isItConfirmingProcess){
 	return getDefaultState()
@@ -18,16 +21,19 @@ export function getInitialState(token, isItConfirmingProcess){
 				defaultState.profile.isLogged = true
 
 				return Promise.all([
-					userModel.getUserByField('id', userId),
+					commonSql.getUserProfileById(userId),
 					userTagModel.getAllUserTagsByUserId(userId)
 				])
 				.then(resp => {
-					const userInfo = resp[0]
+					const formattedProfile = formatUserProfile(resp[0])
 					const tagsArr = resp[1]
 					const devidedTags = devideTagsOnTypes(tagsArr)
 
-					defaultState.profile.userName = userInfo.login
-					defaultState.profile.email = userInfo.email
+					defaultState.profile = {
+						...defaultState.profile,
+						...formattedProfile
+					}
+
 					defaultState.profile.tags = { ...devidedTags }
 
 					return defaultState

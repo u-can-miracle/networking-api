@@ -15,7 +15,17 @@ function update(description, userId){
 	}, {
 		where: {
 			userId
-		}
+		},
+		returning: true
+	})
+	.then(resp => {
+		const affectedList = resp[1]
+		const updatedEntity = affectedList[0]
+		const plainUpdatedEntity = updatedEntity.get({
+      plain: true
+    })
+
+		return plainUpdatedEntity
 	})
 }
 

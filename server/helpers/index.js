@@ -1,4 +1,5 @@
 export * from './jwt'
+export * from './model'
 export * from './getDefaultState'
 export * from './getInitialState'
 export * from './getHtml'

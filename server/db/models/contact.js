@@ -19,11 +19,13 @@ function update(id, contactValue){
 		contactValue,
 	}, {
 		where: {
-			id,
-		}
+			id
+		},
+		returning: true
 	})
 	.then(response => {
-		const contact = response[1]
+		const affectedList = response[1]
+		const contact = affectedList[0]
 		const plainUser = contact.get({
 				plain: true
 			})
@@ -38,6 +40,9 @@ function remove(id){
       id
     }
   })
+	.then(() => {
+		return { id }
+	})
 }
 
 

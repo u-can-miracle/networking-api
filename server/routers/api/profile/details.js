@@ -7,6 +7,8 @@ import authMiddleware from '../../../middlware/auth'
 
 const detailsRouter = express.Router()
 
+
+// TODO Logging best practice
 detailsRouter.post('/:field/update', authMiddleware, (req, res) => {
 	const { field } = req.params
 
@@ -21,6 +23,11 @@ detailsRouter.post('/:field/update', authMiddleware, (req, res) => {
 
 	updateDetails(field, req)
 		.then(okResult => res.json(okResult))
+		.catch(err => {
+			// TODO logging errors
+			console.log('details router err', err)
+			res.sendStatus(400)
+		})
 })
 
 export default detailsRouter

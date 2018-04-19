@@ -15,7 +15,18 @@ function updateUserByField(updateField, updateVal, whereField, whereVal) {
 	}, {
 		where: {
 			[whereField]: whereVal
-		}
+		},
+		returning: true
+	})
+	.then(resp => {
+		// const affectedAmount = resp[0]
+		const affectedList = resp[1]
+		const updatedEntity = affectedList[0]
+		const plainUpdatedEntity = updatedEntity.get({
+      plain: true
+    })
+
+		return plainUpdatedEntity
 	})
 }
 

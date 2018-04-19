@@ -15,7 +15,18 @@ function update(photo, userId){
 	}, {
 		where: {
 			userId
-		}
+		},
+		returning: true
+	})
+	.then(resp => {
+		// const affectedAmount = resp[0]
+		const affectedList = resp[1]
+		const updatedEntity = affectedList[0]
+		const plainUpdatedEntity = updatedEntity.get({
+      plain: true
+    })
+
+		return { photoBase64: plainUpdatedEntity.photo }
 	})
 }
 

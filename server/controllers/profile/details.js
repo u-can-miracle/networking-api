@@ -29,11 +29,12 @@ export async function updateDetails(field, req){
 		.then(() => {
 			return {
 				isSuccessful: true,
+				payload: { location }
 			}
 		})
 		.catch(err => {
 			// TODO: logging error
-			console.log(`ctrl ${updateDetails} err:`, err)
+			console.log('ctrl updateDetails err:', err)
 			return { isSuccessful: false }
 		})
 
