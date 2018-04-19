@@ -11,6 +11,7 @@
 npm run migration:make migration-name
 ```
 This will create `20180414073437-migration-name.js` file
+
 2. To apply specific migration run
 ```
 ./node_modules/.bin/babel-node ./node_modules/.bin/sequelize db:migrate 20180414073437-migration-name
