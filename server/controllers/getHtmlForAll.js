@@ -31,7 +31,6 @@ function getHtmlForAll(req, res){
 		.then(resp => {
 			if(isTokenExist && isTokenValid){
 				const initialState = resp
-				console.log('initialState', initialState)
 				return getHtml(req, initialState)
 			} else {
 				const html = resp

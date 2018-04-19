@@ -9,7 +9,6 @@ serverRenderRouter.use(confirmation)
 serverRenderRouter.use((req, res) => {
 	getHtmlForAll(req, res)
 		.then(html => {
-			console.log('html', html)
 			res.send(html)
 		})
 		.catch(errResp => {

@@ -50,7 +50,6 @@ const User = sequelize.define('user', {
 	hooks: {
 		afterCreate: function(user/*, options*/) {
 			const { id } = user
-			console.log('id')
 			Description.create({ userId: id, description: '' })
 			Photo.create({ userId: id, photo: '' })
 		}
