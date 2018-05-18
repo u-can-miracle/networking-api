@@ -11,24 +11,24 @@
  * @returns {Objcet}
  */
 export function formatUserProfile(rawUserProfile){
+	// eslint-disable-next-line
 	const { contactType, contactValue, contactId, ...rest } = rawUserProfile[0]
-	const formattedProfile = { ...rest }
+	// const formattedProfile = { ...rest }
 
 	const { length } = rawUserProfile
-	const contacts = [{
-		id: contactId,
-		contactType,
-		contactValue
-	}]
-	for(let i = 1; i < length; i++){
+	const contacts = []
+
+	for(let i = 0; i < length && rawUserProfile[i].contactId; i++){
+		const { contactId, contactType, contactValue } = rawUserProfile[i]
+
 		const oneContact = {
-			id: rawUserProfile[i].contactId,
-			contactType: rawUserProfile[i].contactType,
-			contactValue: rawUserProfile[i].contactValue
+			id: contactId,
+			contactType: contactType,
+			contactValue: contactValue
 		}
 
 		contacts.push(oneContact)
 	}
-
-	return { ...formattedProfile, contacts: contacts }
+	const result = { ...rest, contacts: contacts }
+	return result
 }

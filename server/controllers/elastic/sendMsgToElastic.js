@@ -10,6 +10,7 @@ export default function sendMsgToElastic(path, req, tags) {
 			if (jwToken.userId) {
 				const data = {
 					userId: jwToken.userId,
+					emailId: jwToken.emailId,
 					tags
 				}
 				return postJsonToUrl(`${url}${path}`, data)

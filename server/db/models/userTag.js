@@ -54,23 +54,38 @@ function searchMatchingTagsByType(userId, tagsEnum, tagTypeIdToFind){
 	})
 }
 
-function getAllTagsByUsersIds(tagsEnum){
+function getAllTagsByUsersIds(usersIdsEnum){
 	return sequelize.query(
 		`SELECT
-			"tag"."id" as "tagId",
+		"tagId",
+		"tagName",
+		"userTagId",
+		"tagTypeId",
+		"userId",
+		"login",
+		"userEmail"."email"
+		FROM "userEmail"
+		INNER JOIN
+		(
+			SELECT
+			 "tag"."id" as "tagId",
 			"tag"."name" as "tagName",
 			"userTag"."id" as "userTagId",
 			"userTag"."tagTypeId",
 			"user"."id"  as "userId",
-			"user"."email",
+			"user"."emailId",
 			"user"."login"
 			FROM  "tag"
 			INNER JOIN "userTag"
 			ON "tag"."id" = "userTag"."tagId"
-			AND "userTag"."userId" IN (${tagsEnum})
+			AND "userTag"."userId" IN (${usersIdsEnum})
 			INNER JOIN "user"
 			ON "user"."id" = "userTag"."userId"
-			WHERE "user"."id" IN (${tagsEnum})`
+			WHERE "user"."id" IN (${usersIdsEnum})
+		) as "search"
+		ON "userEmail"."id" = "search"."emailId"
+		WHERE "search"."emailId" > 0`
+		// > 0 because for all matching
 	).spread(rawTags => {
 		return rawTags
 	})

@@ -17,8 +17,9 @@ export function LoginUser(email, password, userAgent, res){
 	let emailMsg = ''
 	let passMsg = ''
 	let userId
+	let emailId
 
-	return userModel.getUserByField('email', email)
+	return userModel.getUserByEmail(email)
 		.then(user => {
 			if(user === null){
 				isEmailWrong = true
@@ -29,18 +30,19 @@ export function LoginUser(email, password, userAgent, res){
 			} else {
 				isEmailWrong = false
 				userId = user.id
+				emailId = user.emailId
 				return comparePassword(password, user.password)
 			}
 		})
 		.then(isPassEqual => {
 			let pseudoToken
-			
+
 			if(isEmailWrong === false){
 				if(!isPassEqual){
 					passMsg = WRONG_PASSWORD
 					isPassWrong = true
 				} else {
-					const token = createToken(userId, userAgent)
+					const token = createToken(userId, emailId, userAgent)
 					setJwtToCookies(token, res)
 
 					pseudoToken = { userId }
@@ -61,7 +63,7 @@ export function LoginUser(email, password, userAgent, res){
 			const state = {
 				...initState,	profile
 			}
-			
+			console.log('state')
 			return Promise.resolve(state)
 		})
 		.catch(err => {

@@ -2,11 +2,30 @@ const pass = '$2a$10$gwo4OrbTzh9aDIS6BIYMquKKHVOOqU2RaeE4i18ImPpmPj02spE6C'
 
 export default function(queryInterface){
 	return Promise.all([
+		queryInterface.bulkInsert('userEmail', [
+			{
+				id: 1,
+				email: 'facebook@gmail.com'
+			},
+			{
+				id: 2,
+				email: 'google@gmail.com'
+			},
+			{
+				id: 3,
+				email: 'elonm@gmail.com'
+			},
+			{
+				id: 4,
+				email: 'cloudsmoonlight@gmail.com'
+			}
+		], {}),
+
 		queryInterface.bulkInsert('user', [
 			{
 				id: 3,
 				login: 'facebook',
-				email: 'facebook@gmail.com',
+				emailId: 1,
 				password: pass,
 				isConfirmed: true,
 				hash: 'confirmed',
@@ -15,7 +34,7 @@ export default function(queryInterface){
 			}, {
 				id: 4,
 				login: 'google',
-				email: 'google@gmail.com',
+				emailId: 2,
 				password: pass,
 				isConfirmed: true,
 				hash: 'confirmed',
@@ -24,7 +43,7 @@ export default function(queryInterface){
 			}, {
 				id: 5,
 				login: 'ElonMusk',
-				email: 'elonm@gmail.com',
+				emailId: 3,
 				password: pass,
 				isConfirmed: true,
 				hash: 'confirmed',
@@ -33,7 +52,7 @@ export default function(queryInterface){
 			}, {
 				id: 7,
 				login: 'u-can-miracle',
-				email: 'cloudsmoonlight@gmail.com',
+				emailId: 4,
 				password: pass,
 				isConfirmed: true,
 				hash: 'confirmed',

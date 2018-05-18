@@ -3,23 +3,24 @@ import sequelize from '../connection'
 function getUserProfileById(userId){
 	return sequelize.query(
 		`SELECT
-		"user"."userName", "user"."login", "city"."name" as "location",
+		"user"."userName",
+		"user"."login",
+		COALESCE("city"."name", '') as "location",
 		"contact"."id" as "contactId",
 		"contact"."contactType" ,
 		"contact"."contactValue",
 		"description"."description",
 		"photo"."photo" as "photoBase64"
 		FROM "public"."user"
-		INNER JOIN "public"."description"
+		LEFT JOIN "public"."description"
 		ON "description"."userId"="user"."id"
-		INNER JOIN "public"."photo"
+		LEFT JOIN "public"."photo"
 		ON "photo"."userId"="user"."id"
-		INNER JOIN "public"."city"
+		LEFT JOIN "public"."city"
 		ON "city"."id"="user"."location"
-		INNER JOIN "public"."contact"
+		LEFT JOIN "public"."contact"
 		ON "contact"."userId"="user"."id"
-		where
-		"user"."id"= ${userId}`
+		WHERE "user"."id"= ${userId}`
 	).spread(rawProfile => {
 		return rawProfile
 	})

@@ -1,4 +1,5 @@
 import User from '../schemas/User'
+import sequelize from '../connection'
 
 
 function getUserByField(fieldName, fieldValue) {
@@ -6,6 +7,28 @@ function getUserByField(fieldName, fieldValue) {
 		where: {
 			[fieldName]: fieldValue
 		}
+	})
+}
+
+function getUserByEmail(email){
+	return sequelize.query(`
+		SELECT
+		"userEmail"."email" as "email",
+		"user"."id",
+		"user"."userName",
+		"user"."login",
+		"user"."password",
+		"user"."location",
+		"user"."isConfirmed",
+		"user"."hash"
+		FROM "public"."user"
+		INNER JOIN "public"."userEmail"
+		ON "userEmail"."id" = "user"."emailId"
+		WHERE "userEmail"."email" = '${email}'
+		LIMIT 1;
+	`).spread(rawUsers => {
+		console.log('getUserByEmail rawUsers', rawUsers)
+		return rawUsers[0]
 	})
 }
 
@@ -32,31 +55,32 @@ function updateUserByField(updateField, updateVal, whereField, whereVal) {
 
 function createUser(user) {
 	const {
-		login, email, password, hash
+		login, emailId, password, hash
 	} = user
 
 	return User.create({
-			login, email, password, hash
+			login, emailId, password, hash
 		})
 		.then(user => {
 			return user
 		})
 }
 
-function setUserAsConfirmedByEmail(email) {
+function setUserAsConfirmedByEmailId(emailId) {
 	return User.update({
 		isConfirmed: true,
 		hash: 'confirmed'
 	}, {
 		where: {
-			email: email
+			emailId
 		}
 	})
 }
 
 export default {
 	getUserByField,
+	getUserByEmail,
 	updateUserByField,
 	createUser,
-	setUserAsConfirmedByEmail
+	setUserAsConfirmedByEmailId
 }

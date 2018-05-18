@@ -18,8 +18,6 @@ export function getInitialState(token, isItConfirmingProcess){
 
 				const { userId } = token
 
-				defaultState.profile.isLogged = true
-
 				return Promise.all([
 					commonSql.getUserProfileById(userId),
 					userTagModel.getAllUserTagsByUserId(userId)
@@ -34,8 +32,10 @@ export function getInitialState(token, isItConfirmingProcess){
 						...formattedProfile
 					}
 
-					defaultState.profile.tags = { ...devidedTags }
+					defaultState.profile.isLogged = true
 
+					defaultState.profile.tags = { ...devidedTags }
+					console.log('defaultState', defaultState)
 					return defaultState
 				})
 			}

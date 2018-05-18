@@ -18,8 +18,8 @@ const userFields = {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-  email: {
-		type: Sequelize.STRING,
+  emailId: {
+		type: Sequelize.INTEGER,
 		allowNull: false
 	},
   password: {

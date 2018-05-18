@@ -7,7 +7,7 @@ import authMiddleware from '../../../middlware/auth'
 
 const searchTagsRouter = express.Router()
 
-searchTagsRouter.post('/search/tags', authMiddleware, searchTagsMiddlware)
+searchTagsRouter.post('/tag/search', authMiddleware, searchTagsMiddlware)
 
 export function searchTagsMiddlware(req, res){
 

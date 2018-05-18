@@ -3,7 +3,7 @@ import { descriptionFields } from '../../../schemas/Description'
 import { photoFields } from '../../../schemas/Photo'
 import { contactFields } from '../../../schemas/Contact'
 
-import { createFK } from '../../../../helpers'
+import createFK from '../../createFK'
 
 export default function(queryInterface){
 	return Promise.all([

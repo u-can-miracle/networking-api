@@ -15,14 +15,15 @@ export default function confirmation(hash, req, res){
 				return getHtml(req)
 			} else {
 				isUserExist = true
-				const token = createToken(user.id, req.headers['user-agent'])
+				const { id, emailId } = user
+				const token = createToken(id, emailId, req.headers['user-agent'])
 				setJwtToCookies(token, res)
 
-				userModel.setUserAsConfirmedByEmail(user.email)
+				userModel.setUserAsConfirmedByEmailId(emailId)
 
 				// token is not important if user confirming his/her email
 				// so he/she does not have tags at this monent
-				const pseudoToken = { userId: user.id }
+				const pseudoToken = { userId: id, emailId: emailId }
 				return getInitialState(pseudoToken, true)
 			}
 		})
