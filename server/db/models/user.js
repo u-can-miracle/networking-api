@@ -1,4 +1,5 @@
 import User from '../schemas/User'
+import sequelize from '../connection'
 
 
 function getUserByField(fieldName, fieldValue) {
@@ -7,19 +8,51 @@ function getUserByField(fieldName, fieldValue) {
 			[fieldName]: fieldValue
 		}
 	})
+	.then(userRec => {
+		if(!userRec){
+			return userRec
+		}
+
+		const plainUserRec = userRec.get({
+			plain: true
+		})
+
+		return plainUserRec
+	})
 }
 
-function updateUserByField(updateField, updateVal, whereField, whereVal) {
+function getUserByEmail(email){
+	return sequelize.query(`
+		SELECT
+		"userEmail"."email" as "email",
+		"user"."id",
+		"user"."userName",
+		"user"."login",
+		"user"."password",
+		"user"."location",
+		"user"."comment",
+		"user"."isConfirmed",
+		"user"."hash"
+		FROM "public"."user"
+		INNER JOIN "public"."userEmail"
+		ON "userEmail"."id" = "user"."emailId"
+		WHERE "userEmail"."email" = '${email}'
+		LIMIT 1;
+	`).spread(rawUsers => {
+		return rawUsers[0]
+	})
+}
+
+function updateUserByField(updateObj, whereObj) {
 	return User.update({
-		[updateField]: updateVal
+		...updateObj
 	}, {
 		where: {
-			[whereField]: whereVal
+			...whereObj
 		},
 		returning: true
 	})
 	.then(resp => {
-		// const affectedAmount = resp[0]
 		const affectedList = resp[1]
 		const updatedEntity = affectedList[0]
 		const plainUpdatedEntity = updatedEntity.get({
@@ -31,32 +64,33 @@ function updateUserByField(updateField, updateVal, whereField, whereVal) {
 }
 
 function createUser(user) {
-	const {
-		login, email, password, hash
-	} = user
-
 	return User.create({
-			login, email, password, hash
+			...user
 		})
 		.then(user => {
-			return user
+			const plainUser = user.get({
+					plain: true
+				})
+
+			return plainUser
 		})
 }
 
-function setUserAsConfirmedByEmail(email) {
+function setUserAsConfirmedByEmailId(emailId) {
 	return User.update({
 		isConfirmed: true,
-		hash: 'confirmed'
+		hash: ''
 	}, {
 		where: {
-			email: email
+			emailId
 		}
 	})
 }
 
 export default {
 	getUserByField,
+	getUserByEmail,
 	updateUserByField,
 	createUser,
-	setUserAsConfirmedByEmail
+	setUserAsConfirmedByEmailId
 }

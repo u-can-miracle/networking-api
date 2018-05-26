@@ -1,30 +1,37 @@
 import express from 'express'
 import passport from 'passport'
 
+import getHtmlForFbAuth from '../../controllers/getHtml/getHtmlForFbAuth'
+
 const loginRouter = express.Router()
 
 loginRouter.get('/auth/facebook',
 	passport.authenticate('facebook'),
-	(req, res) => res.redirect('/')
+	(req, res) => {
+		res.redirect('/')
+	}
 )
 
-loginRouter.get('/auth/facebook/callback',
+loginRouter.get('/main',
 	passport.authenticate('facebook', {
 		failureRedirect: '/'
 	}),
-	(req, res) => res.redirect('/main')
-)
-
-loginRouter.get('/auth/google',
-	passport.authenticate('google', { scope: [ 'profile' ] }),
-	(req, res) => res.redirect('/')
-)
-
-loginRouter.get('/auth/google/callback',
-	passport.authenticate('google', {
-		failureRedirect: '/'
-	}),
-	(req, res) => res.redirect('/main')
+	async (req, res) => {
+		req.query = {}
+		req.originalUrl = '/main'
+		req.url = '/main'
+		req._parsedUrl.Url = {
+			search: '',
+			query: '',
+			path: '/main',
+			href: '/main',
+			_raw: '/main'
+		}
+		const html = await getHtmlForFbAuth(req.user.id, req.headers['user-agent'], res)
+		req.query = {}
+		// res.redirect('/main')
+		res.send(html)
+	}
 )
 
 export default loginRouter

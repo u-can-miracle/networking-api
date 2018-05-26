@@ -11,6 +11,8 @@ export const TAG_LOOKING_MODEL_NAME = 'TagLooking'
 
 export const WRONG_TOKEN = 'Token is wrong'
 
+export const FB_REG = 'Registered via fb'
+
 export const UNAUTHORIZED = 'Unauthorized'
 
 

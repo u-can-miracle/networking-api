@@ -6,6 +6,7 @@ import {
 import userTagModel from '../db/models/userTag'
 import commonSql from '../db/models/commonSql'
 
+// TODO: rewrite to async syntax
 export function getInitialState(token, isItConfirmingProcess){
 	return getDefaultState()
 		.then(defaultState => {
@@ -17,8 +18,6 @@ export function getInitialState(token, isItConfirmingProcess){
 				}
 
 				const { userId } = token
-
-				defaultState.profile.isLogged = true
 
 				return Promise.all([
 					commonSql.getUserProfileById(userId),
@@ -33,6 +32,8 @@ export function getInitialState(token, isItConfirmingProcess){
 						...defaultState.profile,
 						...formattedProfile
 					}
+
+					defaultState.profile.isLogged = true
 
 					defaultState.profile.tags = { ...devidedTags }
 

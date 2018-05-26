@@ -26,7 +26,10 @@ function update(photo, userId){
       plain: true
     })
 
-		return { photoBase64: plainUpdatedEntity.photo }
+		return {
+			id: plainUpdatedEntity.id,
+			photoBase64: plainUpdatedEntity.photo
+		}
 	})
 }
 

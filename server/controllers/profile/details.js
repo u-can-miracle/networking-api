@@ -12,7 +12,7 @@ export async function updateDetails(field, req){
 		const { userName } = req.body
 
 		return modelCallWrapper(
-			userModel.updateUserByField, 'userName', userName, 'id', userId
+			userModel.updateUserByField, { userName }, { 'id': userId }
 		)
 
 	} else if(field === constants.DETAIL_FIELD_LOCATION){

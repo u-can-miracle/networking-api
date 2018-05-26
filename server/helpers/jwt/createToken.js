@@ -3,7 +3,6 @@ import config from '../../config/config'
 
 export function createToken(userId, userAgent){
 	const payload = {
-		logged: true,
 		userId: userId,
 		userAgent: userAgent
 	}

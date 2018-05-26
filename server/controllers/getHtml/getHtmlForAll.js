@@ -2,7 +2,7 @@ import {
 	getJwt,
 	getInitialState,
 	getHtml
-} from '../helpers'
+} from '../../helpers'
 
 function getHtmlForAll(req, res){
 	let isTokenExist
@@ -21,17 +21,18 @@ function getHtmlForAll(req, res){
 				} else {
 					// stollen cookies
 					res.clearCookie('jwToken')
-					return getHtml(req)
+					return getHtml(req.url)
 				}
 			} else {
 				isTokenExist = false
-				return getHtml(req)
+				return getHtml(req.url)
 			}
 		})
 		.then(resp => {
 			if(isTokenExist && isTokenValid){
 				const initialState = resp
-				return getHtml(req, initialState)
+
+				return getHtml(req.url, initialState)
 			} else {
 				const html = resp
 

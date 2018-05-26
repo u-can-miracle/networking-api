@@ -1,0 +1,22 @@
+- Rate Limiting
+- .nvmrc
+- preinstall script that checks node and npm versions.
+
+- social actions (share/post) - http://www.passportjs.org/docs/facebook/
+- precommit hook lint - https://github.com/okonet/lint-staged#why
+- precommit hook test - https://githooks.com/
+- swagger API
+- static type checker
+- Docker over dependencies(Postgres, Elastic, etc)
+- CI/CD
+
+- Add error logging
+- Check console logs
+- Schema validation - https://github.com/hapijs/joi
+- .env files to store your variables and add them to .gitignore to be excluded.
+  Instead, commit a .env.example which serves as a guide for developers
+
+
+Endpoints:
+ - in kebab-case
+ - avoid endpoints like /addNewUser or /updateUser

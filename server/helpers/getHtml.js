@@ -2,13 +2,13 @@ import config from '../config/config'
 import { postJsonToUrl } from './'
 
 
-export function getHtml(req, initialPartialState = {}){
-	const url = `${config.web.url}${config.web.getAppAndState}`
-	const data = { 
-		url: req.url, 
-		initialPartialState 
+export function getHtml(appUrl, initialPartialState = {}){
+	const requestUrl = `${config.web.url}${config.web.getAppAndState}`
+	const data = {
+		appUrl,
+		initialPartialState
 	}
-	return postJsonToUrl(url, data)
+	return postJsonToUrl(requestUrl, data)
 		.then(resp => {
 			return resp.AppHtml
 		})
