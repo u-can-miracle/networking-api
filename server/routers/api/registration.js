@@ -9,7 +9,7 @@ regRouter.post('/registration', registrUser)
 export function registrUser(req, res){
 	const { login, email, password } = req.body
 
-	registration(login, email, password, req)
+	registration(login, email, password)
 		.then(okResp => {
 			const {
 				isRequestedDataValid,

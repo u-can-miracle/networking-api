@@ -1,6 +1,6 @@
 import express from 'express'
 
-import getHtmlForAll from '../../controllers/getHtmlForAll'
+import getHtmlForAll from '../../controllers/getHtml/getHtmlForAll'
 import confirmation from './confirmation'
 
 const serverRenderRouter = express.Router()

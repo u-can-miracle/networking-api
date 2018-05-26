@@ -8,6 +8,17 @@ function getUserByField(fieldName, fieldValue) {
 			[fieldName]: fieldValue
 		}
 	})
+	.then(userRec => {
+		if(!userRec){
+			return userRec
+		}
+
+		const plainUserRec = userRec.get({
+			plain: true
+		})
+
+		return plainUserRec
+	})
 }
 
 function getUserByEmail(email){
@@ -19,6 +30,7 @@ function getUserByEmail(email){
 		"user"."login",
 		"user"."password",
 		"user"."location",
+		"user"."comment",
 		"user"."isConfirmed",
 		"user"."hash"
 		FROM "public"."user"
@@ -27,22 +39,20 @@ function getUserByEmail(email){
 		WHERE "userEmail"."email" = '${email}'
 		LIMIT 1;
 	`).spread(rawUsers => {
-		console.log('getUserByEmail rawUsers', rawUsers)
 		return rawUsers[0]
 	})
 }
 
-function updateUserByField(updateField, updateVal, whereField, whereVal) {
+function updateUserByField(updateObj, whereObj) {
 	return User.update({
-		[updateField]: updateVal
+		...updateObj
 	}, {
 		where: {
-			[whereField]: whereVal
+			...whereObj
 		},
 		returning: true
 	})
 	.then(resp => {
-		// const affectedAmount = resp[0]
 		const affectedList = resp[1]
 		const updatedEntity = affectedList[0]
 		const plainUpdatedEntity = updatedEntity.get({
@@ -54,22 +64,22 @@ function updateUserByField(updateField, updateVal, whereField, whereVal) {
 }
 
 function createUser(user) {
-	const {
-		login, emailId, password, hash
-	} = user
-
 	return User.create({
-			login, emailId, password, hash
+			...user
 		})
 		.then(user => {
-			return user
+			const plainUser = user.get({
+					plain: true
+				})
+
+			return plainUser
 		})
 }
 
 function setUserAsConfirmedByEmailId(emailId) {
 	return User.update({
 		isConfirmed: true,
-		hash: 'confirmed'
+		hash: ''
 	}, {
 		where: {
 			emailId

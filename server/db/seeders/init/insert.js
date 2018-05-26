@@ -28,7 +28,7 @@ export default function(queryInterface){
 				emailId: 1,
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed',
+				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
 				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
@@ -37,7 +37,7 @@ export default function(queryInterface){
 				emailId: 2,
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed',
+				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
 				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
@@ -46,7 +46,7 @@ export default function(queryInterface){
 				emailId: 3,
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed',
+				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
 				createdAt: '2018-02-23 20:38:32.02+02'
 			}, {
@@ -55,7 +55,7 @@ export default function(queryInterface){
 				emailId: 4,
 				password: pass,
 				isConfirmed: true,
-				hash: 'confirmed',
+				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
 				createdAt: '2018-02-23 20:38:32.02+02'
 			}

@@ -2,7 +2,7 @@ import passport from 'passport'
 import { Strategy as fbStrategy } from 'passport-facebook'
 
 import config from './config'
-import { createFbUser } from '../controllers/login/socLogin'
+import { handleFbUserData } from '../controllers/login/socLogin'
 
 const { fbCallback, fbClientId, fbClientSecret } = config
 
@@ -15,10 +15,9 @@ export default function passportStrategyConfiguration(app){
 			'email', 'first_name','last_name',
 			'location', 'picture.type(large)', 'link'
 		]
-	}, function(accessToken, refreshToken, profile, cb) {
+	}, async (accessToken, refreshToken, profile, cb) => {
 			// 1)  get user email and usefull data
 			// 2) pass usefull data to cb -> serialize
-			console.log('FB profile', profile)
 			const { id,
 				name: { familyName, givenName },
 				emails,
@@ -36,22 +35,17 @@ export default function passportStrategyConfiguration(app){
 				location: location.name
 			}
 
-			return cb(null, userInfo)
+			const user = await handleFbUserData(userInfo)
+
+			return cb(null, user)
   }))
 
-	passport.serializeUser(function(user, cb) {
-		console.log('user', user)
-		createFbUser(user)
-		// 1) save user data ctrl
-			// - save to db
-			// - save to tokenno99o
+	passport.serializeUser((user, cb) => {
 		cb(null, user)
 	})
 
 
-	passport.deserializeUser(function(user, cb) {
-		console.log('deserializeUser ', user)
-
+	passport.deserializeUser((user, cb) => {
 		cb(null, user)
 	})
 

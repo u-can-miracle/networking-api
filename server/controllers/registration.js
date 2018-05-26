@@ -11,8 +11,9 @@ import {
 	cryptPassword,
 	sendEmail
 } from '../helpers'
+import { FB_REG } from '../constants'
 
-export async function registration(login, email, password, req){
+export async function registration(login, email, password){
 	let isRequestedDataValid
 
 	if(login.length > MIN_LENGTH && password.length > MIN_LENGTH && isValidEmail(email)){
@@ -23,60 +24,82 @@ export async function registration(login, email, password, req){
 		let emailMessage
 		let loginMessage
 
-		const founded = await Promise.all([
+		const [ emailRec, userEmail, userLogin ] = await Promise.all([
+			userEmailModel.getByEmail(email),
 			userModel.getUserByEmail(email),
 			userModel.getUserByField('login', login)
 		])
 
-		const userEmail = founded[0]
-		const userLogin = founded[1]
-
-		if(userLogin && userEmail){
-			// email and login are exist
-			isEmailUsed = true
-			isLoginUsed = true
-			emailMessage = ALREADY_USED_EMAIL
-			loginMessage = ALREADY_USED_LOGIN
-		} else if(userEmail){
-			// only email exist
-			isEmailUsed = true
-			emailMessage = ALREADY_USED_EMAIL
-		} else if(userLogin){
-			// only login exist
-			isLoginUsed = true
-			loginMessage = ALREADY_USED_LOGIN
-		} else {
-			// email and login are not exist - create user
-			isLoginUsed = false
-			isEmailUsed = false
-
-			const hash = createHash()
-
-			try {
+		if(emailRec){
+			// if emailRec exist then user exists is absolutely true
+			const isUserRegisteredOnlyViaFb = (userEmail.comment === FB_REG)
+			if(isUserRegisteredOnlyViaFb){
+				const hash = createHash()
 				const hashedPassword = await cryptPassword(password)
-				const createdEmail = await userEmailModel.findOrCreateEmail(email)
 
-				await userModel.createUser({
+				userModel.updateUserByField({
 					login,
-					emailId: createdEmail.id,
+					comment: '',
 					password: hashedPassword,
 					hash
+				}, {
+					emailId: emailRec.id
 				})
 
-				sendEmail(email, hash, req)
+				sendEmail(email, hash)
+			} else {
+				// user email already exists
+				isEmailUsed = true
+				emailMessage = ALREADY_USED_EMAIL
+			}
+		} else { // email not exist - create email and user
+			if(userLogin && userEmail){
+				// email and login are exist
+				isEmailUsed = true
+				isLoginUsed = true
+				emailMessage = ALREADY_USED_EMAIL
+				loginMessage = ALREADY_USED_LOGIN
+			} else if(userEmail){
+				// only email exist
+				isEmailUsed = true
+				emailMessage = ALREADY_USED_EMAIL
+			} else if(userLogin){
+				// only login exist
+				isLoginUsed = true
+				loginMessage = ALREADY_USED_LOGIN
+			} else {
+				// email and login are not exist - create user
+				isLoginUsed = false
+				isEmailUsed = false
 
-				return {
-					isRequestedDataValid,
-					user: {
-						emailMessage,
-						loginMessage,
-						isEmailUsed,
-						isLoginUsed
-					}
+				const hash = createHash()
+
+				try {
+					const hashedPassword = await cryptPassword(password)
+					const createdEmail = await userEmailModel.createEmail(email)
+
+					await userModel.createUser({
+						login,
+						emailId: createdEmail.id,
+						password: hashedPassword,
+						hash
+					})
+
+					sendEmail(email, hash)
+				} catch (err){
+					console.log('registr ctrl err', err)
+					return {}
 				}
-			} catch (err){
-				console.log('registr ctrl err', err)
-				return Promise.reject({})
+			}
+		}
+
+		return {
+			isRequestedDataValid,
+			user: {
+				emailMessage,
+				loginMessage,
+				isEmailUsed,
+				isLoginUsed
 			}
 		}
 	} else {

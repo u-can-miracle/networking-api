@@ -24,7 +24,7 @@ const userFields = {
 	},
   password: {
 		type: Sequelize.STRING,
-		allowNull: false
+		allowNull: true
 	},
 	location: {
 		type: Sequelize.INTEGER
@@ -36,7 +36,11 @@ const userFields = {
 	},
   hash: { // hash for confirm registration
 		type: Sequelize.STRING,
-		allowNull: false
+		allowNull: true
+	},
+	comment: { // hash for confirm registration
+		type: Sequelize.STRING,
+		allowNull: true
 	},
 	createdAt: Sequelize.DATE,
 	updatedAt: Sequelize.DATE,

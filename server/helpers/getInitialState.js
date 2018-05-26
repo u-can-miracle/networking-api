@@ -6,6 +6,7 @@ import {
 import userTagModel from '../db/models/userTag'
 import commonSql from '../db/models/commonSql'
 
+// TODO: rewrite to async syntax
 export function getInitialState(token, isItConfirmingProcess){
 	return getDefaultState()
 		.then(defaultState => {
@@ -35,7 +36,7 @@ export function getInitialState(token, isItConfirmingProcess){
 					defaultState.profile.isLogged = true
 
 					defaultState.profile.tags = { ...devidedTags }
-					console.log('defaultState', defaultState)
+
 					return defaultState
 				})
 			}

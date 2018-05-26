@@ -1,18 +1,36 @@
 import UserEmail from '../schemas/UserEmail'
 
-function findOrCreateEmail(email) {
-	return UserEmail.findOrCreate({
-			where: {
-				email
-			}
+function getByEmail(emailValue){
+	return UserEmail.findOne({
+		where: {
+			email: emailValue
+		}
+	})
+	.then(emailRec => {
+		if(!emailRec){
+			return emailRec
+		}
+
+		const plainEmailRec = emailRec.get({
+			plain: true
 		})
-		.spread(email => {
-			return email.get({
-				plain: true
-			})
+
+		return plainEmailRec
+	})
+}
+
+
+function createEmail(emailValue) {
+	return UserEmail.create({
+			email: emailValue
+		})
+		.then(user => {
+			return user
 		})
 }
 
+
 export default {
-	findOrCreateEmail
+	getByEmail,
+	createEmail
 }
