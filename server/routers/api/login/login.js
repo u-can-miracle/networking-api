@@ -10,8 +10,8 @@ loginRouter.post('/login', (req, res) => {
 	const { email, password } = req.body
 
 	LoginUser(email, password, req.headers['user-agent'], res)
-		.then(profile => {
-			res.json(profile)
+		.then(profileCurrentUser => {
+			res.json(profileCurrentUser)
 		})
 		.catch(err => {
 			console.log('/login err', err)

@@ -1,44 +1,43 @@
 import {
 	getDefaultState,
 	devideTagsOnTypes,
-	formatUserProfile
+	formatUserContacts,
+	getUserProfileById
 } from './'
 import userTagModel from '../db/models/userTag'
 import commonSql from '../db/models/commonSql'
 
-// TODO: rewrite to async syntax
-export function getInitialState(token, isItConfirmingProcess){
-	return getDefaultState()
-		.then(defaultState => {
-			if(!token || 'userId' in token === false) { // broken token
-				return Promise.resolve(defaultState)
-			} else {
-				if(isItConfirmingProcess){
-					defaultState.confirming.isItConfirmingProcess = true
-				}
 
-				const { userId } = token
+export async function getInitialState(token, isItConfirmingProcess, userProfileId){
+	const defaultState = await getDefaultState()
 
-				return Promise.all([
-					commonSql.getUserProfileById(userId),
-					userTagModel.getAllUserTagsByUserId(userId)
-				])
-				.then(resp => {
-					const formattedProfile = formatUserProfile(resp[0])
-					const tagsArr = resp[1]
-					const devidedTags = devideTagsOnTypes(tagsArr)
+	if(!token || 'userId' in token === false) { // broken token
+		return defaultState
+	} else {
+		const { userId } = token
+		const [ curentUserProfile, tagsArr ] = await Promise.all([
+			commonSql.getUserProfileById(userId),
+			userTagModel.getAllUserTagsByUserId(userId)
+		])
 
-					defaultState.profile = {
-						...defaultState.profile,
-						...formattedProfile
-					}
+		const formattedProfile = formatUserContacts(curentUserProfile)
+		const devidedTags = devideTagsOnTypes(tagsArr)
 
-					defaultState.profile.isLogged = true
+		defaultState.profileCurrentUser = {
+			...defaultState.profileCurrentUser,
+			...formattedProfile
+		}
+		defaultState.loginRegistrDetails.isLogged = true
+		defaultState.profileCurrentUser.tags = { ...devidedTags }
 
-					defaultState.profile.tags = { ...devidedTags }
+		if(isItConfirmingProcess){
+			defaultState.confirming.isItConfirmingProcess = true
+		}
+		if(userProfileId){
+			const profileReview = await getUserProfileById(userProfileId)
+			defaultState.profileReview = profileReview
+		}
 
-					return defaultState
-				})
-			}
-		})
+		return defaultState
+	}
 }

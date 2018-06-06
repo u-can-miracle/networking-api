@@ -7,6 +7,7 @@ import { handleFbUserData } from '../controllers/login/socLogin'
 const { fbCallback, fbClientId, fbClientSecret } = config
 
 export default function passportStrategyConfiguration(app){
+	console.log('passportStrategyConfiguration')
 	passport.use(new fbStrategy({
 		clientID: fbClientId,
 		clientSecret: fbClientSecret,
@@ -41,11 +42,13 @@ export default function passportStrategyConfiguration(app){
   }))
 
 	passport.serializeUser((user, cb) => {
+		console.log('serializeUser')
 		cb(null, user)
 	})
 
 
 	passport.deserializeUser((user, cb) => {
+		console.log('deserializeUser')
 		cb(null, user)
 	})
 

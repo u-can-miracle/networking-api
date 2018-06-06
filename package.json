@@ -4,21 +4,22 @@
 	"description": "",
 	"engines": {
 		"node": ">= 9.2.0",
-		"npm" : "~5.5.1"
+		"npm": "~5.5.1"
 	},
 	"main": "webpack.config.dev.js",
 	"scripts": {
 		"test": "node node_modules/.bin/mocha --require babel-core/register --timeout 7500 server/**/*.spec.js",
 		"start": "node ./server",
-		"migrate": "npm run db:create && npm run migrate:tables:create && npm run seed:create",
+		"migrate": "npm run db:create && npm run tables:create && npm run seed:create",
 		"start:dev": "nodemon --exec ./node_modules/.bin/babel-node ./server",
 		"start:prod": "npm run start:dev",
 		"lint:format": "eslint --fix --ext .js server client/src share server.js",
 		"migration:make": "./node_modules/.bin/babel-node ./scripts/migration-make",
 		"seed:make": "./node_modules/.bin/babel-node ./scripts/seed-make",
+		"seed:after:create": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize db:seed --seed 20180400102909-after-create",
 		"migration:run": "./node_modules/.bin/babel-node ./scripts/migration-run",
 		"db:create": "./node_modules/.bin/sequelize db:create",
-		"migrate:tables:create": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:migrate",
+		"tables:create": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:migrate",
 		"seed:create": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:seed:all",
 		"db:drop": "./node_modules/.bin/babel-node ./node_modules/.bin/sequelize db:drop",
 		"migrate:tables:undo": "./node_modules/.bin/babel-node node_modules/.bin/sequelize db:migrate:undo:all",

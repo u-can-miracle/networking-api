@@ -13,7 +13,7 @@ const envConfig = {
 		update: process.env.UPDATE || '/update-tags',
 		search: process.env.UPDATE || '/search-users-by-tags'
 	},
-	fbCallback: 'http://localhost:5000/main',
+	fbCallback: 'http://localhost:5000/auth/fb/callback',
 	fbClientId: '1755615741425280',
 	fbClientSecret: 'a15c1414a9a317cd5157e6d31468e291',
 

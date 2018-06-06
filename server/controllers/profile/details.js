@@ -8,7 +8,13 @@ import locationModel from '../../db/models/location'
 export async function updateDetails(field, req){
 	const { userId } = await getJwt(req)
 
-	if(field === constants.DETAIL_FIELD_USERNAME){
+	if(field === constants.DETAIL_FIELD_LOGIN){
+		const { login } = req.body
+
+		return modelCallWrapper(
+			userModel.updateUserByField, { login }, { 'id': userId }
+		)
+	} else if(field === constants.DETAIL_FIELD_USERNAME){
 		const { userName } = req.body
 
 		return modelCallWrapper(

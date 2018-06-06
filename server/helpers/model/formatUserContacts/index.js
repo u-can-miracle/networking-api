@@ -10,7 +10,7 @@
 																		}
  * @returns {Objcet}
  */
-export function formatUserProfile(rawUserProfile){
+export function formatUserContacts(rawUserProfile){
 	// eslint-disable-next-line
 	const { contactType, contactValue, contactId, ...rest } = rawUserProfile[0]
 	// const formattedProfile = { ...rest }

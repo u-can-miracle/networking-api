@@ -1,2 +1,2 @@
 export * from './tagType'
-export * from './formatUserProfile'
+export * from './formatUserContacts'

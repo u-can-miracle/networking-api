@@ -13,6 +13,7 @@ detailsRouter.post('/:field/update', authMiddleware, (req, res) => {
 	const { field } = req.params
 
 	if(![
+		constants.DETAIL_FIELD_LOGIN,
 		constants.DETAIL_FIELD_USERNAME,
 		constants.DETAIL_FIELD_LOCATION,
 		constants.DETAIL_FIELD_DESCRIPTION,
