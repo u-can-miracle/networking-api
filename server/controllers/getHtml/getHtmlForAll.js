@@ -16,7 +16,7 @@ function getHtmlForAll(req, res){
 				isTokenValid = userAgent === req.headers['user-agent']
 
 				if(isTokenValid) {
-					// 1) get initial state = { isLogged: true, tags: { offer, looking }}
+					// 1) get initial
 					return getInitialState(token)
 				} else {
 					// stollen cookies

@@ -22,7 +22,7 @@ export async function LoginUser(email, password, userAgent, res){
 
 		const user = await userModel.getUserByEmail(email)
 
-		if(user === null){
+		if(!user){
 			isEmailWrong = true
 			emailMsg = WRONG_EMAIL
 		} else if(user.isConfirmed === false){
@@ -31,7 +31,7 @@ export async function LoginUser(email, password, userAgent, res){
 		} else {
 			isEmailWrong = false
 			const userId = user.id
-			const isPassEqual = comparePassword(password, user.password)
+			const isPassEqual = await comparePassword(password, user.password)
 
 			if(!isPassEqual){
 				passMsg = WRONG_PASSWORD
@@ -46,8 +46,8 @@ export async function LoginUser(email, password, userAgent, res){
 
 		const initState = await getInitialState(pseudoToken)
 
-		const profile = {
-			...initState.profile,
+		const loginRegistrDetails = {
+			...initState.loginRegistrDetails,
 			isEmailWrong,
 			isPassWrong,
 			emailMsg,
@@ -55,7 +55,11 @@ export async function LoginUser(email, password, userAgent, res){
 		}
 
 		const state = {
-			...initState,	profile
+			...initState,
+			profileCurrentUser: {
+				...initState.profileCurrentUser
+			},
+			loginRegistrDetails
 		}
 
 		return state

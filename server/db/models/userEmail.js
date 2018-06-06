@@ -24,8 +24,12 @@ function createEmail(emailValue) {
 	return UserEmail.create({
 			email: emailValue
 		})
-		.then(user => {
-			return user
+		.then(email => {
+			const plainEmail = email.get({
+					plain: true
+				})
+
+			return plainEmail
 		})
 }
 

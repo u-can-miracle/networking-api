@@ -1,6 +1,6 @@
 import chai from 'chai'
 import {
-	formatUserProfile
+	formatUserContacts
 } from './'
 
 const {
@@ -8,7 +8,7 @@ const {
 } = chai
 
 
-describe('formatUserProfile should return formatted user profile: ', function () {
+describe('formatUserContacts should return formatted user profile: ', function () {
 	it('for all data', () => {
 		const inputData = [{
 			userName: 'userName' ,
@@ -44,7 +44,7 @@ describe('formatUserProfile should return formatted user profile: ', function ()
 			}]
 		}
 
-		expect(formatUserProfile(inputData)).to.deep.equal(expectedResult)
+		expect(formatUserContacts(inputData)).to.deep.equal(expectedResult)
 	})
 
 	it('for not full data', () => {
@@ -65,6 +65,6 @@ describe('formatUserProfile should return formatted user profile: ', function ()
 			contacts: []
 		}
 
-		expect(formatUserProfile(inputData)).to.deep.equal(expectedResult)
+		expect(formatUserContacts(inputData)).to.deep.equal(expectedResult)
 	})
 })

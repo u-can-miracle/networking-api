@@ -58,7 +58,7 @@ function updateUserByField(updateObj, whereObj) {
 		const plainUpdatedEntity = updatedEntity.get({
       plain: true
     })
-
+		console.log('updateUserByField', plainUpdatedEntity)
 		return plainUpdatedEntity
 	})
 }

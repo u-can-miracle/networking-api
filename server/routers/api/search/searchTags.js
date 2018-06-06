@@ -15,6 +15,7 @@ export function searchTagsMiddlware(req, res){
 
 	getMatchedUsers(req, tags)
 		.then(usersIdArray => {
+			// TODO: replace 'if' to getUsersTagsByUsersIds ctrl
 			if(usersIdArray.length){
 				return getUsersTagsByUsersIds(usersIdArray)
 			} else {
