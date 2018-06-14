@@ -6,6 +6,7 @@ import constants from '../../constants'
 import tagTypeHelper from '../../helpers/model/tagType'
 import { getJwt } from '../../helpers'
 
+// TODO owerride to async
 export function addTag(tagTypeName, tagName, req) {
 	let savedUser
 	let savedTag

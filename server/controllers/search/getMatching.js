@@ -5,6 +5,7 @@ import {
 import { getJwt, mergeUsersTags } from '../../helpers'
 import { UNAUTHORIZED } from '../../constants'
 
+// TODO: override to async
 export const getMatching = (req, tags) => {
 	return getJwt(req)
 		.then(jwToken => {
