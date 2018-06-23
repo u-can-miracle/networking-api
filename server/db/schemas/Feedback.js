@@ -16,7 +16,7 @@ const feedbackFields = {
 		type: Sequelize.INTEGER
 	}
 }
-const Description = sequelize.define('feedback', {
+const Feedback = sequelize.define('feedback', {
 	...feedbackFields
 }, {
 	freezeTableName: true,
@@ -26,4 +26,4 @@ const Description = sequelize.define('feedback', {
 
 
 export { feedbackFields }
-export default Description
+export default Feedback

@@ -6,7 +6,7 @@ import authMiddleware from '../../../middlware/auth'
 const tagRouter = express.Router()
 
 
-tagRouter.post('/tag/save', authMiddleware, (req, res) => {
+tagRouter.post('/tag/save', authMiddleware, (req, res, next) => {
 	const { tagName, tagType, tagsNames } = req.body
 	let okResponse
 
@@ -19,10 +19,10 @@ tagRouter.post('/tag/save', authMiddleware, (req, res) => {
 		.then(() => {
 			res.json(okResponse)
 		})
-		.catch(errResponse => res.json(errResponse))
+		.catch(err => next(err))
 })
 
-tagRouter.post('/tag/remove', authMiddleware, (req, res) => {
+tagRouter.post('/tag/remove', authMiddleware, (req, res, next) => {
 	const { userTagId, tagsNames } = req.body
 	let okResponse
 
@@ -35,7 +35,7 @@ tagRouter.post('/tag/remove', authMiddleware, (req, res) => {
 		.then(() => {
 			res.json(okResponse)
 		})
-		.catch(errResponse => res.json(errResponse))
+		.catch(err => next(err))
 })
 
 

@@ -6,6 +6,7 @@ import {
 } from '../helpers'
 import userModel from '../db/models/user'
 
+// TODO: rewrite to async
 export default function confirmation(hash, req, res){
 	let isUserExist = false
 
@@ -37,10 +38,5 @@ export default function confirmation(hash, req, res){
 
 				return html
 			}
-		})
-		.catch(err => {
-			// TODO: add logging
-			console.log('confirmation ctrl err', err)
-			return Promise.reject({})
 		})
 }

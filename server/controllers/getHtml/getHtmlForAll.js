@@ -39,10 +39,6 @@ function getHtmlForAll(req, res){
 				return html
 			}
 		})
-		.catch(err => {
-			console.log('getHtmlForAll ctrl err', err)
-			return Promise.reject({})
-		})
 }
 
 module.exports = getHtmlForAll

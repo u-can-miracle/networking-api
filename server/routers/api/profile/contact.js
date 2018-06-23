@@ -8,41 +8,28 @@ import authMiddleware from '../../../middlware/auth'
 
 const contactRouter = express.Router()
 
-// TODO Logging best practice
-contactRouter.post('/contact/create', authMiddleware, (req, res) => {
+contactRouter.post('/contact/create', authMiddleware, (req, res, next) => {
 	const { contactType, contactValue } = req.body
 
 	createContact(req, contactType, contactValue)
 		.then(result => res.json(result))
-		.catch(err => {
-			// TODO logging errors
-			console.log('contact router err', err)
-			res.sendStatus(400)
-		})
+		.catch(err => next(err))
 })
 
-contactRouter.post('/contact/update', authMiddleware, (req, res) => {
+contactRouter.post('/contact/update', authMiddleware, (req, res, next) => {
 	const { id, contactValue } = req.body
 
 	updateContact(id, contactValue)
 		.then(result => res.json(result))
-		.catch(err => {
-			// TODO logging errors
-			console.log('contact router err', err)
-			res.sendStatus(400)
-		})
+		.catch(err => next(err))
 })
 
-contactRouter.post('/contact/remove', authMiddleware, (req, res) => {
+contactRouter.post('/contact/remove', authMiddleware, (req, res, next)=> {
 	const { id } = req.body
 
 	removeContact(id)
 		.then(result => res.json(result))
-		.catch(err => {
-			// TODO logging errors
-			console.log('contact router err', err)
-			res.sendStatus(400)
-		})
+		.catch(err => next(err))
 })
 
 

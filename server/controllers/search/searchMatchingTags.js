@@ -55,8 +55,4 @@ export const searchMatchingTags = (req, searchingTags) => {
 
 			return formattedUsersWithTags
 		})
-		.catch(err => {
-			console.log('search ctrl err', err)
-			return Promise.reject({})
-		})
 }

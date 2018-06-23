@@ -5,16 +5,12 @@ const confirmRouter = express.Router()
 
 confirmRouter.get('/confirm/:hash', confirmMiddlware)
 
-function confirmMiddlware(req, res){
+function confirmMiddlware(req, res, next){
 	const { hash } = req.params
 
 	confirmation(hash, req, res)
 		.then(html => res.send(html))
-		.catch(err => {
-			// add logging error
-			console.log('err', err)
-			res.sendStatus(500)
-		})
+		.catch(err => next(err))
 }
 
 export default confirmRouter

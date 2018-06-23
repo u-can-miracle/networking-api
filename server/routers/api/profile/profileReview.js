@@ -4,12 +4,16 @@ import { getUserProfileByIdCtrl } from '../../../controllers/profile'
 
 const profileReviewRouter = express.Router()
 
-profileReviewRouter.post('/get-by-id', async (req, res) => {
+profileReviewRouter.post('/get-by-id', async (req, res, next) => {
 	const { profileId } = req.body
 
-	const profileReview = await getUserProfileByIdCtrl(profileId)
+	try {
+		const profileReview = await getUserProfileByIdCtrl(profileId)
 
-	res.json({ profileReview })
+		res.json({ profileReview })
+	} catch (err) {
+		next(err)
+	}
 })
 
 export default profileReviewRouter

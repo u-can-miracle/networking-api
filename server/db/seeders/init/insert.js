@@ -30,7 +30,8 @@ export default function(queryInterface){
 				isConfirmed: true,
 				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
-				createdAt: '2018-02-23 20:38:32.02+02'
+				createdAt: '2018-02-23 20:38:32.02+02',
+				isRegisteredOnlyViaFb: false
 			}, {
 				id: 4,
 				login: 'google',
@@ -39,7 +40,8 @@ export default function(queryInterface){
 				isConfirmed: true,
 				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
-				createdAt: '2018-02-23 20:38:32.02+02'
+				createdAt: '2018-02-23 20:38:32.02+02',
+				isRegisteredOnlyViaFb: false
 			}, {
 				id: 5,
 				login: 'ElonMusk',
@@ -48,7 +50,8 @@ export default function(queryInterface){
 				isConfirmed: true,
 				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
-				createdAt: '2018-02-23 20:38:32.02+02'
+				createdAt: '2018-02-23 20:38:32.02+02',
+				isRegisteredOnlyViaFb: false
 			}, {
 				id: 7,
 				login: 'u-can-miracle',
@@ -57,17 +60,8 @@ export default function(queryInterface){
 				isConfirmed: true,
 				hash: '',
 				updatedAt: '2018-02-23 20:38:32.02+02',
-				createdAt: '2018-02-23 20:38:32.02+02'
-			}
-		], {}),
-
-		queryInterface.bulkInsert('tagType', [
-			{
-				tagTypeId: 1,
-				tagTypeName: 'offer'
-			}, {
-				tagTypeId: 2,
-				tagTypeName: 'looking'
+				createdAt: '2018-02-23 20:38:32.02+02',
+				isRegisteredOnlyViaFb: false
 			}
 		], {}),
 

@@ -11,7 +11,6 @@ import {
 	cryptPassword,
 	sendEmail
 } from '../helpers'
-import { FB_REG } from '../constants'
 
 export async function registration(login, email, password){
 	let isRequestedDataValid
@@ -24,7 +23,7 @@ export async function registration(login, email, password){
 		let emailMessage
 		let loginMessage
 
-		const [ emailRec, userEmail, userLogin ] = await Promise.all([
+		const [ emailRec, userEmailRec, userLoginRec ] = await Promise.all([
 			userEmailModel.getByEmail(email),
 			userModel.getUserByEmail(email),
 			userModel.getUserByField('login', login)
@@ -32,8 +31,7 @@ export async function registration(login, email, password){
 
 		if(emailRec){
 			// if emailRec exist then user exists is absolutely true
-			const isUserRegisteredOnlyViaFb = (userEmail.comment === FB_REG)
-			if(isUserRegisteredOnlyViaFb){
+			if(userEmailRec.isRegisteredOnlyViaFb){
 				const hash = createHash()
 				const hashedPassword = await cryptPassword(password)
 
@@ -41,6 +39,7 @@ export async function registration(login, email, password){
 					login,
 					comment: '',
 					password: hashedPassword,
+					isRegisteredOnlyViaFb: false,
 					hash
 				}, {
 					emailId: emailRec.id
@@ -53,17 +52,17 @@ export async function registration(login, email, password){
 				emailMessage = ALREADY_USED_EMAIL
 			}
 		} else { // email not exist - create email and user
-			if(userLogin && userEmail){
+			if(userLoginRec && userEmailRec){
 				// email and login are exist
 				isEmailUsed = true
 				isLoginUsed = true
 				emailMessage = ALREADY_USED_EMAIL
 				loginMessage = ALREADY_USED_LOGIN
-			} else if(userEmail){
+			} else if(userEmailRec){
 				// only email exist
 				isEmailUsed = true
 				emailMessage = ALREADY_USED_EMAIL
-			} else if(userLogin){
+			} else if(userLoginRec){
 				// only login exist
 				isLoginUsed = true
 				loginMessage = ALREADY_USED_LOGIN
@@ -74,22 +73,17 @@ export async function registration(login, email, password){
 
 				const hash = createHash()
 
-				try {
-					const hashedPassword = await cryptPassword(password)
-					const createdEmail = await userEmailModel.createEmail(email)
+				const hashedPassword = await cryptPassword(password)
+				const createdEmail = await userEmailModel.createEmail(email)
 
-					await userModel.createUser({
-						login,
-						emailId: createdEmail.id,
-						password: hashedPassword,
-						hash
-					})
+				await userModel.createUser({
+					login,
+					emailId: createdEmail.id,
+					password: hashedPassword,
+					hash
+				})
 
-					sendEmail(email, hash)
-				} catch (err){
-					console.log('registr ctrl err', err)
-					return {}
-				}
+				sendEmail(email, hash)
 			}
 		}
 

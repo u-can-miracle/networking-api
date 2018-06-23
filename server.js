@@ -3,6 +3,7 @@ import express from 'express'
 
 import envConfig from './server/config/config'
 import appConfig from './server/config/express'
+import errorHandling from './server/config/errorHandling'
 import authConfig from './server/config/passport'
 import rootRouter from './server/routers'
 
@@ -17,6 +18,8 @@ appConfig(app)
 authConfig(app)
 
 rootRouter(app)
+
+errorHandling(app)
 
 
 process.on('uncaughtException', (err) => {

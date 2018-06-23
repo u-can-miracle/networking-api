@@ -7,7 +7,7 @@ import tagTypeHelper from '../../helpers/model/tagType'
 import { getJwt } from '../../helpers'
 
 // TODO owerride to async
-export function addTag(tagTypeName, tagName, req) {
+export async function addTag(tagTypeName, tagName, req) {
 	let savedUser
 	let savedTag
 
@@ -35,33 +35,20 @@ export function addTag(tagTypeName, tagName, req) {
 		})
 		.then(resp => {
 			savedTag = resp[0]
-
 			const clearTagTypes = tagTypeHelper.getClearTagTypes(resp[1])
 			const tagTypeId = tagTypeHelper.getTagTypeIdByName(clearTagTypes, tagTypeName)
 
 			return userTagModel.saveUserTag(savedUser.id, savedTag.id, tagTypeId)
 		})
-		.then(userTag => {
-			return Promise.resolve({
-				userTagId: userTag.id,
-				tagId: savedTag.id,
-				tagName: savedTag.name
-			})
-		})
-		.catch(err => {
-			// logging error
-			console.log('profile ctrl addTag err', err)
-			return Promise.reject({})
-		})
+		.then(userTag => ({
+			userTagId: userTag.id,
+			tagId: savedTag.id,
+			tagName: savedTag.name
+		}))
 }
 
-export function removeTag(userTagId){
-	return userTagModel.removeUserTag(userTagId)
-		.then(() => {
-			return { userTagId }
-		})
-		.catch(err => {
-			console.log('ctrl profile removeTag err', err)
-			return { isRemoved: false }
-		})
+export async function removeTag(userTagId){
+	await userTagModel.removeUserTag(userTagId)
+
+	return { userTagId }
 }
