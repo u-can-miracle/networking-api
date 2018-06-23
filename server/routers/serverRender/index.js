@@ -8,14 +8,12 @@ const serverRenderRouter = express.Router()
 
 serverRenderRouter.use(confirmation)
 serverRenderRouter.use(profileReview)
-serverRenderRouter.use((req, res) => {
+serverRenderRouter.use((req, res, next) => {
 	getHtmlForAll(req, res)
 		.then(html => {
 			res.send(html)
 		})
-		.catch(errResp => {
-			res.json(errResp)
-		})
+		.catch(err => next(err))
 }) // it's get('*') route should be last
 
 export default serverRenderRouter

@@ -30,7 +30,7 @@ export function sendEmail(email, hash) {
 						'and your password will remain unchanged.\n'
     }, function(error/*, response*/) { //callback
         if (error) {
-            console.log('error', error)
+					throw error
         }
 				// Shut down the connection pool, no more messages.
 				// Comment this line out to continue sending emails.

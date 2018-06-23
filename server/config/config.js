@@ -3,6 +3,10 @@ const envConfig = {
   port: process.env.PORT || 5001,
 	secretToken: 'token-secret',
 	secretCookie: 'cookie-secret',
+	logger: {
+		name: 'networking-logger',
+		level: 'error'
+	},
   web: {
     url: process.env.WEB_URL || 'http://localhost:5000',
     getDefaultStatePath: process.env.GET_DEFAULT_STATE_PATH || '/get-default-state',

@@ -9,8 +9,7 @@ const searchTagsRouter = express.Router()
 
 searchTagsRouter.post('/tag/search', authMiddleware, searchTagsMiddlware)
 
-export function searchTagsMiddlware(req, res){
-
+export function searchTagsMiddlware(req, res, next){
 	const { tags } = req.body  // ['']
 
 	getMatchedUsers(req, tags)
@@ -23,13 +22,7 @@ export function searchTagsMiddlware(req, res){
 			}
 		})
 		.then(usersTags => res.json(usersTags))
-
-	// getMatching(req, tags)
-	// 	.then(resp => res.json(resp))
-	// 	.catch(errData => {
-	// 		console.log('errData', errData)
-	// 		res.sendStatus(errData.status)
-	// 	})
+		.catch(err => next(err))
 }
 
 export default searchTagsRouter

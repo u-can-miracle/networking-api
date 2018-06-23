@@ -12,5 +12,4 @@ export function getHtml(appUrl, initialPartialState = {}){
 		.then(resp => {
 			return resp.AppHtml
 		})
-		.catch(console.log)
 }

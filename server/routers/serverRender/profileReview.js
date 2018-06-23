@@ -5,16 +5,12 @@ const profileReviewRouter = express.Router()
 
 profileReviewRouter.get('/profile/:id', profileReviewMiddlware)
 
-function profileReviewMiddlware(req, res){
+function profileReviewMiddlware(req, res, next){
 	const { id } = req.params
 
 	profileReview(req, id)
 		.then(html => res.send(html))
-		.catch(err => {
-			// add logging error
-			console.log('err', err)
-			res.sendStatus(500)
-		})
+		.catch(err => next(err))
 }
 
 export default profileReviewRouter

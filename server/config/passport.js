@@ -3,11 +3,11 @@ import { Strategy as fbStrategy } from 'passport-facebook'
 
 import config from './config'
 import { handleFbUserData } from '../controllers/login/socLogin'
+import { logger } from './errorHandling'
 
 const { fbCallback, fbClientId, fbClientSecret } = config
 
 export default function passportStrategyConfiguration(app){
-	console.log('passportStrategyConfiguration')
 	passport.use(new fbStrategy({
 		clientID: fbClientId,
 		clientSecret: fbClientSecret,
@@ -36,9 +36,15 @@ export default function passportStrategyConfiguration(app){
 				location: location.name
 			}
 
-			const user = await handleFbUserData(userInfo)
+			try {
+				const user = await handleFbUserData(userInfo)
 
-			return cb(null, user)
+				return cb(null, user)
+			} catch (err) {
+				const time = new Date().getTime()
+				logger.error({ time, err }, 'fb login error')
+				return cb(null, false)
+			}
   }))
 
 	passport.serializeUser((user, cb) => {

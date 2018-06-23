@@ -38,9 +38,9 @@ const userFields = {
 		type: Sequelize.STRING,
 		allowNull: true
 	},
-	comment: { // hash for confirm registration
-		type: Sequelize.STRING,
-		allowNull: true
+	isRegisteredOnlyViaFb: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false
 	},
 	createdAt: Sequelize.DATE,
 	updatedAt: Sequelize.DATE,

@@ -8,7 +8,7 @@ const logoutRouter = express.Router()
 logoutRouter.post('/logout', LogoutUser)
 
 
-function LogoutUser(req, res){
+function LogoutUser(req, res, next){
 	logout(req, res)
 		.then(isLoggedOut => {
 			if(isLoggedOut){
@@ -17,10 +17,7 @@ function LogoutUser(req, res){
 				res.sendStatus(400)
 			}
 		})
-		.catch(err => {
-			console.log('/logout route err', err)
-			res.sendStatus(500)
-		})
+		.catch(err => next(err))
 }
 
 export default logoutRouter

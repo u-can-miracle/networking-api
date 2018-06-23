@@ -10,11 +10,11 @@ export async function createContact(req, contactType, contactValue){
 }
 
 
-export function updateContact(id, contactValue){
+export async function updateContact(id, contactValue){
 	return modelCallWrapper(contactModel.update, id, contactValue)
 }
 
 
-export function removeContact(id){
+export async function removeContact(id){
 	return modelCallWrapper(contactModel.remove, id)
 }

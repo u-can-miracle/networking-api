@@ -6,7 +6,7 @@ const regRouter = express.Router()
 regRouter.post('/registration', registrUser)
 
 
-export function registrUser(req, res){
+export function registrUser(req, res, next){
 	const { login, email, password } = req.body
 
 	registration(login, email, password)
@@ -22,10 +22,7 @@ export function registrUser(req, res){
 				res.sendStatus(400)
 			}
 		})
-		.catch(errResp => {
-			console.log('/registration errResp', errResp)
-			res.sendStatus(500)
-		})
+		.catch(err => next(err))
 }
 
 export default regRouter

@@ -1,3 +1,5 @@
+import { FRONT, BACK } from '../../../constants'
+
 export default function(queryInterface){
 	return queryInterface.bulkInsert('tagType', [
 		{
@@ -8,4 +10,13 @@ export default function(queryInterface){
 			tagTypeName: 'looking'
 		}
 	], {})
+	.then(() => queryInterface.bulkInsert('errorTypes', [
+		{
+			id: 1,
+			errorType: FRONT
+		}, {
+			id: 2,
+			errorType: BACK
+		}
+	], {}))
 }

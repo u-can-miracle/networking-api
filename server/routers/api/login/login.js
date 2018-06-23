@@ -6,17 +6,14 @@ import {
 
 const loginRouter = express.Router()
 
-loginRouter.post('/login', (req, res) => {
+loginRouter.post('/login', (req, res, next) => {
 	const { email, password } = req.body
 
 	LoginUser(email, password, req.headers['user-agent'], res)
 		.then(profileCurrentUser => {
 			res.json(profileCurrentUser)
 		})
-		.catch(err => {
-			console.log('/login err', err)
-			res.sendStatus(500)
-		})
+		.catch(err => next(err))
 })
 
 export default loginRouter

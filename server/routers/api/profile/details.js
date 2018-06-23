@@ -9,7 +9,7 @@ const detailsRouter = express.Router()
 
 
 // TODO Logging best practice
-detailsRouter.post('/:field/update', authMiddleware, (req, res) => {
+detailsRouter.post('/:field/update', authMiddleware, (req, res, next) => {
 	const { field } = req.params
 
 	if(![
@@ -24,11 +24,7 @@ detailsRouter.post('/:field/update', authMiddleware, (req, res) => {
 
 	updateDetails(field, req)
 		.then(okResult => res.json(okResult))
-		.catch(err => {
-			// TODO logging errors
-			console.log('details router err', err)
-			res.sendStatus(400)
-		})
+		.catch(err => next(err))
 })
 
 export default detailsRouter

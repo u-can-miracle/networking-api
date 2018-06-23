@@ -30,7 +30,7 @@ function getUserByEmail(email){
 		"user"."login",
 		"user"."password",
 		"user"."location",
-		"user"."comment",
+		"user"."isRegisteredOnlyViaFb",
 		"user"."isConfirmed",
 		"user"."hash"
 		FROM "public"."user"
@@ -58,7 +58,7 @@ function updateUserByField(updateObj, whereObj) {
 		const plainUpdatedEntity = updatedEntity.get({
       plain: true
     })
-		console.log('updateUserByField', plainUpdatedEntity)
+
 		return plainUpdatedEntity
 	})
 }

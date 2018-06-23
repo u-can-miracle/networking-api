@@ -20,39 +20,33 @@ export async function updateDetails(field, req){
 		return modelCallWrapper(
 			userModel.updateUserByField, { userName }, { 'id': userId }
 		)
-
 	} else if(field === constants.DETAIL_FIELD_LOCATION){
 		const { location } = req.body
+
 		return locationModel.findOrCreateByName(location)
 			.then(location => {
-				return userModel.updateUserByField(
-					constants.DETAIL_FIELD_LOCATION,
-					location.id,
-					'id',
-					userId
-				)
+				return userModel.updateUserByField({
+					[constants.DETAIL_FIELD_LOCATION]: location.id
+				}, {
+					'id': userId
+				})
 			})
-		.then(() => {
-			return {
-				isSuccessful: true,
-				payload: { location }
-			}
-		})
-		.catch(err => {
-			// TODO: logging error
-			console.log('ctrl updateDetails err:', err)
-			return { isSuccessful: false }
-		})
+			.then(() => {
+				return {
+					isSuccessful: true,
+					payload: { location }
+				}
+			})
 
 	} else if(field === constants.DETAIL_FIELD_DESCRIPTION){
 		const { description } = req.body
+
 		return modelCallWrapper(
 			descriptionModel.update, description, userId
 		)
-
 	} else if(field === constants.DETAIL_FIELD_PHOTO){
 		const { photoBase64 } = req.body
-		return modelCallWrapper(photoModel.update, photoBase64, userId)
 
+		return modelCallWrapper(photoModel.update, photoBase64, userId)
 	}
 }
