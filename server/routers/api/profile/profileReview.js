@@ -1,10 +1,11 @@
 import express from 'express'
 
+import authMiddlware from '../../../middleware/auth'
 import { getUserProfileByIdCtrl } from '../../../controllers/profile'
 
 const profileReviewRouter = express.Router()
 
-profileReviewRouter.post('/get-by-id', async (req, res, next) => {
+profileReviewRouter.post('/get-by-id', authMiddlware, async (req, res, next) => {
 	const { profileId } = req.body
 
 	try {
