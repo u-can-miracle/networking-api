@@ -2,7 +2,7 @@ import express from 'express'
 
 import { getMatchedUsers } from '../../../controllers/elastic'
 import { getUsersTagsByUsersIds } from '../../../controllers/search'
-import authMiddleware from '../../../middlware/auth'
+import authMiddleware from '../../../middleware/auth'
 
 
 const searchTagsRouter = express.Router()

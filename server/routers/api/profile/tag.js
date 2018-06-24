@@ -1,7 +1,7 @@
 import express from 'express'
 import { addTag, removeTag } from '../../../controllers/profile'
 import { updateTags as updateTagsInElastic } from '../../../controllers/elastic'
-import authMiddleware from '../../../middlware/auth'
+import authMiddleware from '../../../middleware/auth'
 
 const tagRouter = express.Router()
 

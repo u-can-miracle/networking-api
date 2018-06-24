@@ -1,11 +1,12 @@
 import express from 'express'
 
+import authMiddlware from '../../../middleware/auth'
 import { logout } from '../../../controllers/login/logout'
 
 const logoutRouter = express.Router()
 
 
-logoutRouter.post('/logout', LogoutUser)
+logoutRouter.post('/logout', authMiddlware, LogoutUser)
 
 
 function LogoutUser(req, res, next){

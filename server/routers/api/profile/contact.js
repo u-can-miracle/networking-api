@@ -4,7 +4,7 @@ import {
 	updateContact,
 	removeContact
 } from '../../../controllers/profile'
-import authMiddleware from '../../../middlware/auth'
+import authMiddleware from '../../../middleware/auth'
 
 const contactRouter = express.Router()
 

@@ -3,7 +3,7 @@
 import express from 'express'
 import * as constants from '../../../constants'
 import { updateDetails } from '../../../controllers/profile'
-import authMiddleware from '../../../middlware/auth'
+import authMiddleware from '../../../middleware/auth'
 
 const detailsRouter = express.Router()
 
