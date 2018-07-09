@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 import express from 'express'
 
-import envConfig from './server/config/config'
+// import envConfig from './server/config/config'
 // import appConfig from './server/config/express'
 // import errorHandling from './server/config/errorHandling'
 // import authConfig from './server/config/passport'
@@ -28,8 +28,11 @@ const app = express()
 //
 
 
-app.listen(envConfig.port, function(){
-  console.log(`Listening at http://localhost:${envConfig.port}`)
+app.listen(443, function(){
+  // console.log(`Listening at http://localhost:${envConfig.port}`)
 })
+// app.listen(envConfig.port, function(){
+//   console.log(`Listening at http://localhost:${envConfig.port}`)
+// })
 
 export default app
