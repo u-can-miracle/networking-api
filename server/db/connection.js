@@ -1,8 +1,9 @@
 import Sequelize from 'sequelize'
 
+import config from '../config/config'
 import dbConfig from '../config/db'
 
-const { host, database, username, password, dialect } = dbConfig.development
+const { host, database, username, password, dialect } = dbConfig[config.env]
 const Op = Sequelize.Op
 const operatorsAliases = {
   $eq: Op.eq,
