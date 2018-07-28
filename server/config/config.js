@@ -5,7 +5,7 @@ const envConfig = {
 	secretCookie: process.env.COOKIE_SECRET || 'cookie-secret',
 	logger: {
 		name: 'networking-logger',
-		level: 'error'
+		level: 'debug'
 	},
   web: {
     url: process.env.WEB_URL || 'http://localhost:5000',
