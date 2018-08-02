@@ -11,38 +11,68 @@ const logsFolderPath = path.resolve(__dirname, logsFolderPathRelative)
 const logsFilePath = path.resolve(__dirname, logsFilePathRelative)
 
 export async function waitUntilCreateLogsIfNotExist(){
-	await createLogFolderIfNotExist()
-	.then(() => createLogFileIfNotExist())
-	.catch(err => {
+	try {
+		await createLogFolderIfNotExist()
+		await createLogFileIfNotExist()
+	} catch (err) {
 		console.log('waitUntilCreateLogsIfNotExist err', err)
-	})
+	}
 }
 
-function createLogFolderIfNotExist(){
-	try {
-		fs.readdirSync(logsFolderPath)
-	} catch(err) {
-		if(err.code === 'ENOENT'){
-			try {
-				fs.mkdirSync(logsFolderPath)
-			} catch(err) {
-				console.log('mkdirSync err', err)
+async function createLogFolderIfNotExist(){
+	return new Promise((resolve, reject) => {
+		try {
+			fs.readdirSync(logsFolderPath)
+			resolve()
+		} catch(err) {
+			if(err.code === 'ENOENT'){
+				try {
+					fs.mkdirSync(logsFolderPath)
+					resolve()
+				} catch(err) {
+					reject(err)
+				}
+			} else {
+				reject(err)
 			}
-		} else {
-			// handle unexpected err
-			console.log('readdirSync err', err)
 		}
-	}
+	})
+	// try {
+	// 	fs.readdirSync(logsFolderPath)
+	// } catch(err) {
+	// 	if(err.code === 'ENOENT'){
+	// 		try {
+	// 			fs.mkdirSync(logsFolderPath)
+	// 		} catch(err) {
+	// 			console.log('mkdirSync err', err)
+	// 		}
+	// 	} else {
+	// 		// handle unexpected err
+	// 		console.log('readdirSync err', err)
+	// 	}
+	// }
 }
 
 function createLogFileIfNotExist(){
-	try {
-		fs.openSync(logsFilePath, 'r')
-	} catch(err) {
-		if(err.code === 'ENOENT'){
-			fs.closeSync(fs.openSync(logsFilePath, 'w'))
+	return new Promise((resolve, reject) => {
+		try {
+			fs.openSync(logsFilePath, 'r')
+			resolve()
+		} catch(err) {
+			if(err.code === 'ENOENT'){
+				fs.closeSync(fs.openSync(logsFilePath, 'w'))
+				resolve()
+			}
+			reject(err)
 		}
-
-		console.log('openSync unexpected error')
-	}
+	})
+	// try {
+	// 	fs.openSync(logsFilePath, 'r')
+	// } catch(err) {
+	// 	if(err.code === 'ENOENT'){
+	// 		fs.closeSync(fs.openSync(logsFilePath, 'w'))
+	// 	}
+	//
+	// 	console.log('openSync unexpected error')
+	// }
 }
