@@ -3,7 +3,7 @@ import Sequelize from 'sequelize'
 import config from '../config/config'
 import dbConfig from '../config/db'
 
-const { host, database, username, password, dialect } = dbConfig[config.env]
+const { host, port, database, username, password, dialect } = dbConfig[config.env]
 const Op = Sequelize.Op
 const operatorsAliases = {
   $eq: Op.eq,
@@ -42,9 +42,9 @@ const operatorsAliases = {
   $col: Op.col
 }
 const sequelize = new Sequelize(database, username, password, {
-  host: host,
-  dialect: dialect,
-	port: 5432,
+  host,
+  dialect,
+	port,
   pool: {
     max: 5,
     min: 0,

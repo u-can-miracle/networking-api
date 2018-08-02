@@ -1,7 +1,13 @@
+import path from 'path'
 import bunyan from 'bunyan'
 import _ from 'lodash'
 
 import config from './config'
+import { waitUntilCreateLogsIfNotExist } from '../helpers'
+
+const { logger: { logsFolder, logsFile } } = config
+
+waitUntilCreateLogsIfNotExist()
 
 export const logger = bunyan.createLogger({
   name: config.logger.name,
@@ -35,12 +41,12 @@ export const logger = bunyan.createLogger({
       level: 'error',
 			period: '1d',   // daily rotation
       count: 3,
-      path: './logs/errors.log'  // log ERROR to a file
+      path: path.resolve(logsFolder, logsFile)  // log ERROR to a file
     }
   ],
 })
 
-export default function errorHandling(app) {
+export default async function errorHandling(app) {
 	// eslint-disable-next-line
 	app.use(function(err, req, res, next) {
 		const time = new Date().getTime()
