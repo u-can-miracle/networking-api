@@ -19,6 +19,8 @@ const envConfig = {
 		update: '/update-tags',
 		search: '/search-users-by-tags'
 	},
+	emailAddress: process.env.EMAIL_ADDRESS,
+	emailPass: process.env.EMAIL_PASS,
 	fbCallback: process.env.FB_CALLBACK || 'http://localhost:5000/auth/fb/callback',
 	fbClientId: process.env.FB_CLIENT_ID,
 	fbClientSecret: process.env.FB_CLIENT_SECRET,

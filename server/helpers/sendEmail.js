@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer'
 import config from '../config/config'
 
-const { web: { url } } = config
+const { web: { url }, emailAddress, emailPass } = config
 
 export function sendEmail(email, hash) {
     var smtpTransport = nodemailer.createTransport({
@@ -9,8 +9,8 @@ export function sendEmail(email, hash) {
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: 'rubygarag@gmail.com',
-            pass: 'weekpassword'
+            user: emailAddress,
+            pass: emailPass
         },
         secureConnection: true
     })
