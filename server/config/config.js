@@ -10,6 +10,8 @@ const envConfig = {
 		logsFile: './errors.log'
 	},
   web: {
+		domain: process.env.WEB_DOMAIN_NAME,
+		protocol: process.env.WEB_PROTOCOL || 'http',
     url: process.env.WEB_URL || 'http://localhost:5000',
     getDefaultStatePath: '/get-default-state', //+'/get-default-state'
     getAppAndState: '/get-app-html' //+ '/get-app-html'
