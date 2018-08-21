@@ -49,7 +49,7 @@ export const logger = bunyan.createLogger({
 export default async function errorHandling(app) {
 	// eslint-disable-next-line
 	app.use(function(err, req, res, next) {
-		const time = new Date().getTime()
+		const time = new Date()
 
 		logger.error({ time, err, req })
 
