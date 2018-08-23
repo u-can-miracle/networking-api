@@ -15,6 +15,7 @@ export default function passportStrategyConfiguration(app){
 		profileFields: [
 		'id', 
 		'address', 
+		'city',
 		'hometown',
 		'email', 
 		'photos',
@@ -24,8 +25,9 @@ export default function passportStrategyConfiguration(app){
 		'last_name', 
 //		'middle_name', 
 //		'gender',
-		'user_location',
+//		'user_location',
 		'location',
+//		'location',
 		 'link'
 		]
 		/*profileFields: [
