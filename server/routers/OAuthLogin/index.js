@@ -7,7 +7,9 @@ const loginRouter = express.Router()
 
 loginRouter.get('/auth/facebook',
 	passport.authenticate('facebook', {
-		failureRedirect: '/login'
+//		scope: ['email', 'public_profile'],
+		failureRedirect: '/login',
+//		scope: ['hometown']
 	}),
 	(req, res) => {
 		res.redirect('/')

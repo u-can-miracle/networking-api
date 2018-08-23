@@ -8,6 +8,7 @@ export function getHtml(appUrl, initialPartialState = {}){
 		appUrl,
 		initialPartialState
 	}
+console.log('requestUrl', requestUrl)
 	return postJsonToUrl(requestUrl, data)
 		.then(resp => {
 			return resp.AppHtml

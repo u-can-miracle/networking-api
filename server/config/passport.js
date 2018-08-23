@@ -13,12 +13,29 @@ export default function passportStrategyConfiguration(app){
 		clientSecret: fbClientSecret,
 		callbackURL: fbCallback,
 		profileFields: [
-			'email', 'first_name','last_name',
-			'location', 'picture.type(large)', 'link'
+		'id', 
+		'address', 
+		'hometown',
+		'email', 
+		'photos',
+//		'birthday', 
+//		'friends',
+		'first_name', 
+		'last_name', 
+//		'middle_name', 
+//		'gender',
+		'user_location',
+		'location',
+		 'link'
 		]
+		/*profileFields: [
+			'emails', 'id', 'first_name','last_name',
+			'location', 'picture.type(large)', 'link'
+		]*/
 	}, async (accessToken, refreshToken, profile, cb) => {
 			// 1)  get user email and usefull data
 			// 2) pass usefull data to cb -> serialize
+console.log('profile',profile)
 			const { id,
 				name: { familyName, givenName },
 				emails,
