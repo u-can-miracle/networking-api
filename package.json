@@ -62,7 +62,7 @@
 		"babel-preset-stage-3": "^6.24.1",
 		"bcrypt": "^1.0.3",
 		"body-parser": "^1.18.2",
-		"bunyan": "^1.8.12",
+		"bunyan": "^1.8.13",
 		"compression": "^1.7.1",
 		"cookie-parser": "^1.4.3",
 		"express": "^4.16.0",
