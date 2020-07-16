@@ -68,7 +68,7 @@
 		"express": "^4.16.0",
 		"helmet": "^3.12.0",
 		"jsonwebtoken": "^8.1.0",
-		"lodash": "^4.17.10",
+		"lodash": "^4.17.19",
 		"nodemailer": "^4.4.0",
 		"npm-run": "^5.0.1",
 		"passport": "^0.4.0",
