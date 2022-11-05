@@ -38,7 +38,7 @@
 		"babel-cli": "^6.26.0",
 		"babel-core": "^6.26.0",
 		"babel-eslint": "7",
-		"babel-loader": "^7.1.2",
+		"babel-loader": "^8.2.4",
 		"babel-plugin-transform-es2015-computed-properties": "^6.24.1",
 		"babel-plugin-transform-regenerator": "^6.26.0",
 		"babel-preset-env": "^1.6.0",
@@ -54,7 +54,7 @@
 	"dependencies": {
 		"babel-cli": "^6.26.0",
 		"babel-core": "^6.26.0",
-		"babel-loader": "^7.1.2",
+		"babel-loader": "^8.2.4",
 		"babel-plugin-transform-es2015-computed-properties": "^6.24.1",
 		"babel-plugin-transform-regenerator": "^6.26.0",
 		"babel-preset-env": "^1.6.0",
@@ -76,7 +76,7 @@
 		"passport-local": "^1.0.0",
 		"pg": "6.4.1",
 		"pg-hstore": "^2.3.2",
-		"pm2": "^3.0.0",
+		"pm2": "^4.4.0",
 		"request": "^2.85.0",
 		"sequelize": "^4.22.6",
 		"sequelize-cli": "^3.0.0"
