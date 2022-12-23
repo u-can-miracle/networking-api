@@ -67,7 +67,7 @@
 		"cookie-parser": "^1.4.3",
 		"express": "^4.16.0",
 		"helmet": "^3.12.0",
-		"jsonwebtoken": "^8.1.0",
+		"jsonwebtoken": "^9.0.0",
 		"lodash": "^4.17.10",
 		"nodemailer": "^4.4.0",
 		"npm-run": "^5.0.1",
@@ -76,7 +76,7 @@
 		"passport-local": "^1.0.0",
 		"pg": "6.4.1",
 		"pg-hstore": "^2.3.2",
-		"pm2": "^3.0.0",
+		"pm2": "^4.4.0",
 		"request": "^2.85.0",
 		"sequelize": "^4.22.6",
 		"sequelize-cli": "^3.0.0"
